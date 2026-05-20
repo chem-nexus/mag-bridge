@@ -4,6 +4,9 @@ const pkg = require('./package.json');
 
 function getAppConfig() {
   const isProd = (process.env.NODE_ENV || pkg.env?.NODE_ENV) === 'production';
+  const uvicornHost = process.env.UVICORN_HOST || '127.0.0.1';
+  const uvicornPort = Number(process.env.UVICORN_PORT || 8000);
+  const apiHost = uvicornHost === '0.0.0.0' ? '127.0.0.1' : uvicornHost;
 
   return {
     // environment
@@ -25,8 +28,8 @@ function getAppConfig() {
     // uvicorn config
     uvicorn: {
       app: process.env.UVICORN_APP || 'backend:app',
-      host: process.env.UVICORN_HOST || '127.0.0.1',
-      port: Number(process.env.UVICORN_PORT || 8000),
+      host: uvicornHost,
+      port: uvicornPort,
       logLevel: process.env.UVICORN_LOG_LEVEL || 'info',
       accessLog: (process.env.UVICORN_ACCESS_LOG ?? '1') !== '0',
       reload: process.env.UVICORN_RELOAD === '1',
@@ -34,6 +37,8 @@ function getAppConfig() {
       useHttptools: process.env.UVICORN_HTTPTOOLS === '1',
       lifespanOff: process.env.UVICORN_LIFESPAN_OFF === '1',
     },
+
+    apiBaseUrl: `http://${apiHost}:${uvicornPort}`,
 
     // utils
     importTime: process.env.BACKEND_IMPORTTIME === '1',

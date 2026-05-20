@@ -8,6 +8,8 @@ const { getAppConfig, configToString } = require('./app-config');
 const cfg = getAppConfig();
 const log = createLogger();
 const sdfDir = cfg.userSdfDir;
+const appDataDir = path.dirname(sdfDir);
+let backendApiBaseUrl = cfg.apiBaseUrl;
 
 log.info(`=== MagBridge configuration ===\n${configToString(cfg)}`);
 
@@ -16,6 +18,14 @@ let backendProcess;
 let mainWindow = null;
 
 function createWindow() {
+  const rendererConfig = {
+    isProd: cfg.isProd,
+    config: {
+      sdf_dir: cfg.userSdfDir,
+      api_base_url: backendApiBaseUrl,
+    },
+  };
+
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 1000,
@@ -23,14 +33,14 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
+      additionalArguments: [`--app-config=${encodeURIComponent(JSON.stringify(rendererConfig))}`],
     },
   });
 
   log.bindWindow(mainWindow, 'main');
-
   if (cfg.isProd) {
-    // Production: Load built Angular from ../frontend/build/frontend/browser/
-    mainWindow.loadFile(path.join(__dirname, '../frontend/build/frontend/browser/index.html'));
+    // Production: frontend is bundled under build/frontend/browser in app resources.
+    mainWindow.loadFile(path.join(__dirname, 'build', 'frontend', 'browser', 'index.html'));
   } else {
     // Development: Connect to Angular dev server in container
     // Windows (Docker Desktop) may need host.docker.internal
@@ -50,14 +60,18 @@ function createWindow() {
   });
 }
 
-function startProdBackend() {
-  log.info('Spawning backend from executable...', { path: cfg.backendExecutablePath });
-
-  backendProcess = spawn(cfg.backendExecutablePath, {
-    stdio: ['ignore', 'pipe', 'pipe'],
-    env: { ...process.env, PYTHONUNBUFFERED: '1', APP_DATA_DIR: sdfDir },
+function startProdBackend(port) {
+  log.info('Spawning backend from executable...', {
+    path: cfg.backendExecutablePath,
+    host: '127.0.0.1',
+    port,
   });
-  log.info('Backend process spawned.', { path: cfg.backendExecutablePath });
+
+  backendProcess = spawn(cfg.backendExecutablePath, ['--host', '127.0.0.1', '--port', String(port)], {
+    stdio: ['ignore', 'pipe', 'pipe'],
+    env: { ...process.env, PYTHONUNBUFFERED: '1', APP_DATA_DIR: appDataDir },
+  });
+  log.info('Backend process spawned.', { path: cfg.backendExecutablePath, port });
 
   log.hookChildProcess(backendProcess, { name: 'backend' });
 }
@@ -90,7 +104,7 @@ function startDevBackend() {
     PYTHONUNBUFFERED: '1',
     PYTHONPATH: [cfg.cwd, process.env.PYTHONPATH || ''].filter(Boolean).join(path.delimiter),
     FORCE_COLOR: '1',
-    APP_DATA_DIR: sdfDir,
+    APP_DATA_DIR: appDataDir,
   };
 
   log.info('Spawning managed backend (dev)', {
@@ -111,12 +125,16 @@ function startDevBackend() {
   log.hookChildProcess(backendProcess, { name: 'backend' });
 }
 
-function onBackendReady() {
+async function onBackendReady() {
   try {
     if (cfg.manageBackend) {
       if (cfg.isProd) {
-        startProdBackend();
+        const { default: getPort } = await import('get-port');
+        const port = await getPort({ host: '127.0.0.1' });
+        backendApiBaseUrl = `http://127.0.0.1:${port}`;
+        startProdBackend(port);
       } else {
+        backendApiBaseUrl = cfg.apiBaseUrl;
         startDevBackend();
       }
     } else {
@@ -148,15 +166,15 @@ app.on('will-quit', () => {
 });
 
 ipcMain.handle('api-request', async (_event, { url, method = 'GET', body = null }) => {
-  const options = {
-    method,
-    headers: { 'Content-Type': 'application/json' },
-  };
-  if (body != null) {
-    options.body = JSON.stringify(body);
-  }
-
   try {
+    const options = {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+    };
+    if (body != null) {
+      options.body = JSON.stringify(body);
+    }
+
     const response = await fetch(url, options);
 
     if (!response.ok) {

@@ -2,22 +2,24 @@ import logging
 import shutil
 
 from fastapi import APIRouter, HTTPException
-from backend.config import SDF_DIR, IS_DEV_MODE, translate_path
+
+from backend.config import settings, translate_path
 from backend.schemas.calculations import ExperimentRequest, InputType
 
 router = APIRouter(tags=["experiments"])
 logger = logging.getLogger("uvicorn.access")
+
 
 @router.post("/experiments")
 async def create_experiment(data: ExperimentRequest):
     if data.input_type == InputType.SDF:
         if not data.path:
             raise HTTPException(status_code=400, detail="Path is required for SDF input")
-        
+
         # Translate path (dev mode: macOS → container, prod mode: direct)
         try:
             src = translate_path(data.path)
-            logger.info(f"Upload request: {data.path} → {src} (dev_mode={IS_DEV_MODE})")
+            logger.info(f"Upload request: {data.path} → {src} (dev_mode={settings.is_dev_mode})")
         except HTTPException:
             raise
         except Exception as e:
@@ -39,7 +41,7 @@ async def create_experiment(data: ExperimentRequest):
             logger.info(f"Calculation attempt: empty file: {src}")
             raise HTTPException(status_code=400, detail="File is empty")
 
-        dest = SDF_DIR/src.name
+        dest = settings.sdf_dir / src.name
 
         try:
             shutil.copy2(src, dest)

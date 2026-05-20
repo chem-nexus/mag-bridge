@@ -4,6 +4,10 @@ set -euo pipefail
 USERNAME='vscode_server'
 echo "[postCreateCommand]:: Starting Dev Container Post-Create Setup..."
 
+# Ensure environment CLI and root launcher are executable from the workspace.
+chmod +x "${PWD}/.github/scripts/environment.py"
+chmod +x "${PWD}/environment"
+
 # ------------------------------------------------------
 # 3. SHELL CUSTOMIZATION AND PERSISTENCE
 # ------------------------------------------------------

@@ -75,7 +75,9 @@
       ]
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "get-port": "^7.2.0"
+  },
   "devDependencies": {
     "electron": "^39.2.5",
     "electron-builder": "^26.0.12",

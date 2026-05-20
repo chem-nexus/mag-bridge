@@ -1,6 +1,7 @@
 // ============================================================================
 // FRONTEND PRELOAD (Electron Renderer Bridge)
 // Provides:
+//   - appConfig runtime injection for renderer
 //   - apiRequest IPC bridge
 //   - stdout logger (explicit logging to main)
 //   - console forwarding (renderer console -> main)
@@ -10,7 +11,31 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 // ============================================================================
-// 1. IPC Wrapper: Safe API Request
+// 1. Runtime App Config Injection
+// Reads --app-config=<json> from renderer process argv and exposes it as
+// window.appConfig for frontend runtime configuration.
+// ============================================================================
+
+function parseAppConfigArg() {
+  const rawArg = process.argv.find((arg) => arg.startsWith('--app-config='));
+  if (!rawArg) return null;
+
+  try {
+    const encoded = rawArg.slice('--app-config='.length);
+    return JSON.parse(decodeURIComponent(encoded));
+  } catch {
+    return null;
+  }
+}
+
+const appConfig = parseAppConfigArg();
+
+if (appConfig) {
+  contextBridge.exposeInMainWorld('appConfig', appConfig);
+}
+
+// ============================================================================
+// 2. IPC Wrapper: Safe API Request
 // ============================================================================
 
 // Safe API bridge
@@ -20,7 +45,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 });
 
 // ============================================================================
-// 2. Explicit Renderer → Main Logging (stdout bridge)
+// 3. Explicit Renderer -> Main Logging (stdout bridge)
 // ============================================================================
 
 contextBridge.exposeInMainWorld('stdout', {
@@ -31,7 +56,7 @@ contextBridge.exposeInMainWorld('stdout', {
 });
 
 // ============================================================================
-// 3. Internal Renderer Console Forwarding (optional)
+// 4. Internal Renderer Console Forwarding (optional)
 // Sends all console.log/info/warn/error/debug to main log
 // ============================================================================
 
@@ -69,7 +94,7 @@ function serializeArg(a) {
 });
 
 // ============================================================================
-// 4. Unhandled Error Forwarding
+// 5. Unhandled Error Forwarding
 // ============================================================================
 
 window.addEventListener('error', (evt) => {
