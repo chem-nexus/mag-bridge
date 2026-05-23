@@ -1,9 +1,9 @@
-import { environment } from '../../../environments/environment';
+import { AppConfig } from '../../../app-config';
 
 export const ApiEndpoints = {
   general: {
-    home: `${environment.apiUrl}/`,
-    health: `${environment.apiUrl}/health`,
+    home: `${AppConfig.apiBaseUrl}/`,
+    health: `${AppConfig.apiBaseUrl}/health`,
   },
-  experiments: `${environment.apiUrl}/experiments`,
+  experiments: `${AppConfig.apiBaseUrl}/experiments`,
 };

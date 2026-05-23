@@ -9,6 +9,24 @@
 
 const { contextBridge, ipcRenderer } = require('electron');
 
+function parseAppConfigArg() {
+  const rawArg = process.argv.find((arg) => arg.startsWith('--app-config='));
+  if (!rawArg) return null;
+
+  try {
+    const encoded = rawArg.slice('--app-config='.length);
+    return JSON.parse(decodeURIComponent(encoded));
+  } catch {
+    return null;
+  }
+}
+
+const appConfig = parseAppConfigArg();
+
+if (appConfig) {
+  contextBridge.exposeInMainWorld('appConfig', appConfig);
+}
+
 // ============================================================================
 // 1. IPC Wrapper: Safe API Request
 // ============================================================================

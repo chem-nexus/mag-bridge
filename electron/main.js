@@ -1,6 +1,7 @@
 // electron/main.js
 const { spawn } = require('child_process');
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { Agent } = require('undici');
 const path = require('path');
 
 const { createLogger } = require('./logging');
@@ -15,8 +16,26 @@ log.info(`=== MagBridge configuration ===\n${configToString(cfg)}`);
 let backendProcess;
 
 let mainWindow = null;
+const directLoopbackAgent = new Agent();
+
+function isLoopbackUrl(rawUrl) {
+  try {
+    const { hostname } = new URL(rawUrl);
+    return hostname === '127.0.0.1' || hostname === 'localhost' || hostname === '::1';
+  } catch {
+    return false;
+  }
+}
 
 function createWindow() {
+  const rendererConfig = {
+    isProd: cfg.isProd,
+    config: {
+      sdf_dir: cfg.userSdfDir,
+      api_base_url: cfg.apiBaseUrl,
+    },
+  };
+
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 1000,
@@ -24,6 +43,7 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
+      additionalArguments: [`--app-config=${encodeURIComponent(JSON.stringify(rendererConfig))}`],
     },
   });
 
@@ -150,10 +170,16 @@ app.on('will-quit', () => {
 ipcMain.handle('api-request', async (_event, { url, method = 'GET', body = null }) => {
   const options = {
     method,
-    headers: { 'Content-Type': 'application/json' },
   };
+
   if (body != null) {
+    options.headers = { 'Content-Type': 'application/json' };
     options.body = JSON.stringify(body);
+  }
+
+  if (isLoopbackUrl(url)) {
+    // Keep local backend traffic off environment/system proxy paths.
+    options.dispatcher = directLoopbackAgent;
   }
 
   try {
