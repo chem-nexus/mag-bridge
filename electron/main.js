@@ -29,8 +29,8 @@ function createWindow() {
 
   log.bindWindow(mainWindow, 'main');
   if (cfg.isProd) {
-    // Production: Load built Angular from ../frontend/build/frontend/browser/
-    mainWindow.loadFile(path.join(__dirname, '../frontend/build/frontend/browser/index.html'));
+    // Production: frontend is bundled under build/frontend/browser in app resources.
+    mainWindow.loadFile(path.join(__dirname, 'build', 'frontend', 'browser', 'index.html'));
   } else {
     // Development: Connect to Angular dev server in container
     // Windows (Docker Desktop) may need host.docker.internal
