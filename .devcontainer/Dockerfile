@@ -24,6 +24,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libfontconfig1 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+ENV PROJECT_DIR=/workspaces/mag-bridge
+
 # Claude persistent isolated auth
 RUN mkdir -p /commandhistory /home/${USERNAME}/.claude \
     && chown -R ${USERNAME}:${USER_GID} /commandhistory /home/${USERNAME}/.claude
