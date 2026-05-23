@@ -502,116 +502,104 @@ CALC_DIAMAG_QUALITY_TESTS: list["DataQualityDiamagContrTestsSDF"] = [
         measured_diamag_sus=-57.4,
         literature_reference="No. 147",
     ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba(HCOO)2.sdf",
+        measured_diamag_sus=-66.6,
+        literature_reference="No. 155",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba(OOC-CH2-COO).sdf",
+        measured_diamag_sus=-81.3,
+        literature_reference="No. 156",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba(OOC-CH2-CH2-COO).sdf",
+        measured_diamag_sus=-97.6,
+        literature_reference="No. 157",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba(AcO)2.sdf",
+        measured_diamag_sus=-87.0,
+        literature_reference="No. 158",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba(tart)_H2O.sdf",
+        measured_diamag_sus=-117.1,
+        literature_reference="No. 159",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba[Pd(CN)4]_4H2O.sdf",
+        measured_diamag_sus=-201.48,
+        literature_reference="No. 160",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba[Pt(CN)4]_4H2O.sdf",
+        measured_diamag_sus=-232.28,
+        literature_reference="No. 161",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba(n-PrCOOH)2.sdf",
+        measured_diamag_sus=-145.6,
+        literature_reference="No. 165",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba(acac)2.sdf",
+        measured_diamag_sus=-130.9,
+        literature_reference="No. 168",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba(PhCOO)2_2H2O.sdf",
+        measured_diamag_sus=-203.2,
+        literature_reference="No. 171",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba(ninhydrin_dimer).sdf",
+        measured_diamag_sus=-160.0,
+        literature_reference="No. 172",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba{Ph-C(=O)-CH=C(Me)-O}.sdf",
+        measured_diamag_sus=-207.3,
+        literature_reference="No. 173",
+    ),
+    # metalorganic compound for future ML / no pascal const for Cu(0)
+    DataQualityDiamagContrTestsSDF(sdf_file="Ba3[Cu(Ph-C#[C-])3]2.sdf", measured_diamag_sus=-538.0, literature_reference="No. 176", skip_test=True),
+    # Berylium compounds
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Be(OH)2.sdf",
+        measured_diamag_sus=-23.1,
+        literature_reference="No. 180",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Be(NO3)2.sdf",
+        measured_diamag_sus=-41.0,
+        literature_reference="No. 183",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="BeO.sdf",
+        measured_diamag_sus=-11.93,
+        literature_reference="No. 184",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="BeSO4.sdf",
+        measured_diamag_sus=-37.8,
+        literature_reference="No. 185",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Be(acac)2.sdf",
+        measured_diamag_sus=-107.5,
+        literature_reference="No. 187",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Be4O(AcO)6].sdf",
+        measured_diamag_sus=-182.2,
+        literature_reference="No. 188",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Be4O(EtCOO)6].sdf",
+        measured_diamag_sus=-252.8,
+        literature_reference="No. 189",
+    ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
