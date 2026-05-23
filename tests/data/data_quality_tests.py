@@ -562,8 +562,13 @@ CALC_DIAMAG_QUALITY_TESTS: list["DataQualityDiamagContrTestsSDF"] = [
         measured_diamag_sus=-207.3,
         literature_reference="No. 173",
     ),
-    # metalorganic compound for future ML / no pascal const for Cu(0)
-    DataQualityDiamagContrTestsSDF(sdf_file="Ba3[Cu(Ph-C#[C-])3]2.sdf", measured_diamag_sus=-538.0, literature_reference="No. 176", skip_test=True),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Ba3[Cu(Ph-C#[C-])3]2.sdf",
+        measured_diamag_sus=-538.0,
+        literature_reference="No. 176",
+        description="metalorganic compound for future ML / no pascal const for Cu(0)",
+        skip_test=True,
+    ),
     # Berylium compounds
     DataQualityDiamagContrTestsSDF(
         sdf_file="Be(OH)2.sdf",
@@ -600,560 +605,946 @@ CALC_DIAMAG_QUALITY_TESTS: list["DataQualityDiamagContrTestsSDF"] = [
         measured_diamag_sus=-252.8,
         literature_reference="No. 189",
     ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # Boron compounds
     DataQualityDiamagContrTestsSDF(
-        sdf_file="Na_HCOO_B(OH)3_2H2O.sdf",
-        measured_diamag_sus=-88.9,
-        literature_reference="No. 1534.",
+        sdf_file="Be{Ph-C(=O)-CH=C(Me)-O}.sdf",
+        measured_diamag_sus=-184.2,
+        literature_reference="No. 190",
     ),
     # Bismuth compounds
     DataQualityDiamagContrTestsSDF(
-        sdf_file="Bi_Cl_2_PhMe_3.sdf",
-        measured_diamag_sus=-263.4,
-        literature_reference="No. 1481.",
+        sdf_file="BiBr3.sdf",
+        measured_diamag_sus=-136.0,
+        literature_reference="No. 193",
     ),
     DataQualityDiamagContrTestsSDF(
-        sdf_file="Bi_Ph_3.sdf",
+        sdf_file="[Bi3+][Br-]3.sdf",
+        measured_diamag_sus=-136.0,
+        literature_reference="No. 193",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Bi3+][O2-][Cl-].sdf",
+        measured_diamag_sus=-51.83,
+        literature_reference="No. 194",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi(NO3)3_5H2O.sdf",
+        measured_diamag_sus=-159.0,
+        literature_reference="No. 198",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi(PO4).sdf",
+        measured_diamag_sus=-71.22,
+        literature_reference="No. 203",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi2O3.sdf",
+        measured_diamag_sus=-80.15,
+        literature_reference="No. 204",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi2(SO4)3.sdf",
+        measured_diamag_sus=-149.14,
+        literature_reference="No. 205",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi2S3.sdf",
+        measured_diamag_sus=-122.9,
+        literature_reference="No. 206",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi(cit).sdf",
+        measured_diamag_sus=-120.2,
+        literature_reference="No. 209",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Bi3+](DMAB-diazonium+)[Cl-]4-resonance1.sdf",
+        measured_diamag_sus=-265.0,
+        literature_reference="No. 210",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Bi3+](DMAB-diazonium+)[Cl-]4-resonance2.sdf",
+        measured_diamag_sus=-265.0,
+        literature_reference="No. 210",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="BiPh3.sdf",
         measured_diamag_sus=-194.6,
         literature_reference="No. 211",
     ),
     DataQualityDiamagContrTestsSDF(
-        sdf_file="Bi3+_HO_C_COO-_3.sdf",
-        measured_diamag_sus=-120.2,
-        literature_reference="No. 209",
+        sdf_file="[Bi3+][Ph-]3.sdf",
+        measured_diamag_sus=-194.6,
+        literature_reference="No. 211",
     ),
-    # Berylium compounds
     DataQualityDiamagContrTestsSDF(
-        sdf_file="Be_NO3_2.sdf",
+        sdf_file="[Bi5+][Ph-]3[Cl-]2.sdf",
+        measured_diamag_sus=-222.7,
+        literature_reference="No. 212",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi(V)Ph3Cl2.sdf",
+        measured_diamag_sus=-222.7,
+        literature_reference="No. 212",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Bi5+][Ph-]3[NO3-]2.sdf",
+        measured_diamag_sus=-254.5,
+        literature_reference="No. 213",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Bi3+][MePh-]3.sdf",
+        measured_diamag_sus=-229.2,
+        literature_reference="No. 214",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi(PhMe)3.sdf",
+        measured_diamag_sus=-229.2,
+        literature_reference="No. 214",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi(V)(o-MePh)3Cl.sdf",
+        measured_diamag_sus=-296.5,
+        literature_reference="No. 215",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Bi5+][o-MePh-]3[Cl-].sdf",
+        measured_diamag_sus=-296.5,
+        literature_reference="No. 215",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi(V)(p-MePh)3Cl.sdf",
+        measured_diamag_sus=-263.4,
+        literature_reference="No. 216",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Bi5+][p-MePh-]3[Cl-].sdf",
+        measured_diamag_sus=-263.4,
+        literature_reference="No. 216",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Bi(2,4-Me2Ph)3.sdf",
+        measured_diamag_sus=-262.7,
+        literature_reference="No. 217",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Bi3+](2,4-Me2Ph-)3.sdf",
+        measured_diamag_sus=-262.7,
+        literature_reference="No. 217",
+    ),
+    # Boron compounds
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="BBr3.sdf",
+        measured_diamag_sus=-85.5,
+        literature_reference="No. 219",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[B3+][Br-]3.sdf",
+        measured_diamag_sus=-85.5,
+        literature_reference="No. 219",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[B3+][Cl-]3.sdf",
+        measured_diamag_sus=-59.9,
+        literature_reference="No. 220",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="BCl3.sdf",
+        measured_diamag_sus=-59.9,
+        literature_reference="No. 220",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="K[BF4].sdf",
+        measured_diamag_sus=-54.42,
+        literature_reference="No. 221",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="B(OH)3.sdf",
+        measured_diamag_sus=-35.72,
+        literature_reference="No. 224",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[B3+][OH-]3.sdf",
+        measured_diamag_sus=-35.72,
+        literature_reference="No. 224",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="Rb(BH4).sdf",
         measured_diamag_sus=-41.0,
-        literature_reference="No. 183",
+        literature_reference="No. 225",
     ),
-    # Barium compounds
     DataQualityDiamagContrTestsSDF(
-        sdf_file="Ba2+_PhCOO-_2H2O.sdf",
-        measured_diamag_sus=-203.2,
-        literature_reference="No. 171",
+        sdf_file="Cd(BF4)2.sdf",
+        measured_diamag_sus=-100.0,
+        literature_reference="No. 226",
     ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="B2O3.sdf",
+        measured_diamag_sus=-38.73,
+        literature_reference="No. 228",
+    ),
+    # TODO Add informative description for error with boron hydride clusters parsing
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="[Cs+]2[(B10H10)2-].sdf",
+        measured_diamag_sus=-52.0,
+        literature_reference="No. 230",
+        description="Boron hydride clusters cannot be parse properly by RDKit since it doesn't support the 3c-2e bonding.",
+        skip_test=True,
+    ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="",
+    # ),
     # Platinum compounds
     DataQualityDiamagContrTestsSDF(
         sdf_file="[Pt((NH2)2CS}4]Cl2.sdf",
