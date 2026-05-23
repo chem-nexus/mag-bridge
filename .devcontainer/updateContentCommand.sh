@@ -27,6 +27,17 @@ else
 	echo "[updateContentCommand]:: .devcontainer/node_modules exists. Skipping."
 fi
 
+# Symlink node_modules inside the promptfoo skill dir so Promptfoo's module resolver
+# (which walks up from evals/ → promptfoo/) can find packages in .devcontainer/node_modules.
+# Not committed to either repo — node_modules is gitignored in both.
+PROMPTFOO_SKILL_DIR=".claude/skills/promptfoo"
+if [ ! -L "${PROMPTFOO_SKILL_DIR}/node_modules" ]; then
+	echo "[updateContentCommand]:: Linking ${PROMPTFOO_SKILL_DIR}/node_modules -> .devcontainer/node_modules..."
+	ln -sf "$(pwd)/.devcontainer/node_modules" "${PROMPTFOO_SKILL_DIR}/node_modules"
+else
+	echo "[updateContentCommand]:: ${PROMPTFOO_SKILL_DIR}/node_modules symlink exists. Skipping."
+fi
+
 # Python Dependencies
 echo "[updateContentCommand]:: Installing Python requirements via uv..."
 uv pip install -r requirements.txt -r requirements-ci.txt
