@@ -13,6 +13,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
 # Install OS Dependencies (Removed 'sudo' for strict AI Isolation)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    vim \
     curl \
     git \
     libxrender1 \
@@ -50,7 +51,7 @@ RUN apt-get update && \
 # Arch-agnostic: $(dpkg --print-architecture) resolves arm64/amd64 at build time.
 RUN ARCH=$(dpkg --print-architecture) \
     && curl -fsSL "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_${ARCH}.deb" \
-       -o /tmp/gh.deb \
+        -o /tmp/gh.deb \
     && dpkg -i /tmp/gh.deb \
     && rm /tmp/gh.deb
 
