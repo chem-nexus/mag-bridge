@@ -135,7 +135,7 @@ jobs:
         env:
           PYTHONIOENCODING: "utf-8"
         run: |
-          python scripts/environment.py build \
+          python .github/scripts/environment.py build \
             --platform "${{ matrix.eb_platform }}" \
             --extra "--publish never -c.extraMetadata.version=${APP_VERSION}"
 

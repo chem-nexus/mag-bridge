@@ -5,5 +5,5 @@ export const ApiEndpoints = {
     home: `${environment.apiUrl}/`,
     health: `${environment.apiUrl}/health`,
   },
-  experiments: `${environment.apiUrl}/experiments/`,
+  experiments: `${environment.apiUrl}/experiments`,
 };
