@@ -8,6 +8,7 @@ const { getAppConfig, configToString } = require('./app-config');
 const cfg = getAppConfig();
 const log = createLogger();
 const sdfDir = cfg.userSdfDir;
+const appDataDir = path.dirname(sdfDir);
 
 log.info(`=== MagBridge configuration ===\n${configToString(cfg)}`);
 
@@ -27,7 +28,6 @@ function createWindow() {
   });
 
   log.bindWindow(mainWindow, 'main');
-
   if (cfg.isProd) {
     // Production: Load built Angular from ../frontend/build/frontend/browser/
     mainWindow.loadFile(path.join(__dirname, '../frontend/build/frontend/browser/index.html'));
@@ -55,7 +55,7 @@ function startProdBackend() {
 
   backendProcess = spawn(cfg.backendExecutablePath, {
     stdio: ['ignore', 'pipe', 'pipe'],
-    env: { ...process.env, PYTHONUNBUFFERED: '1', APP_DATA_DIR: sdfDir },
+    env: { ...process.env, PYTHONUNBUFFERED: '1', APP_DATA_DIR: appDataDir },
   });
   log.info('Backend process spawned.', { path: cfg.backendExecutablePath });
 
@@ -90,7 +90,7 @@ function startDevBackend() {
     PYTHONUNBUFFERED: '1',
     PYTHONPATH: [cfg.cwd, process.env.PYTHONPATH || ''].filter(Boolean).join(path.delimiter),
     FORCE_COLOR: '1',
-    APP_DATA_DIR: sdfDir,
+    APP_DATA_DIR: appDataDir,
   };
 
   log.info('Spawning managed backend (dev)', {

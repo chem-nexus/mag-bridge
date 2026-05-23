@@ -6,7 +6,14 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 def _resolve_workspace_root() -> Path:
-    return next(p for p in Path(__file__).resolve().parents if (p / "requirements.txt").exists())
+    # Repo/devcontainer mode: find workspace marker while walking up.
+    for p in Path(__file__).resolve().parents:
+        if (p / "requirements.txt").exists():
+            return p
+
+    # Packaged mode fallback: backend runs from app resources where repo files
+    # are not present. Use current working directory as a stable root.
+    return Path.cwd().resolve()
 
 
 class Settings(BaseSettings):
@@ -21,6 +28,12 @@ class Settings(BaseSettings):
     def model_post_init(self, __context: object) -> None:
         app_dir_from_env = self.app_data_dir is not None
         data_dir = (self.app_data_dir or (self.workspace_root / "data")).resolve()
+
+        # Be resilient when APP_DATA_DIR points directly to an "sdf" folder.
+        # The canonical shape is: <data_dir>/sdf
+        if data_dir.name.lower() == "sdf":
+            data_dir = data_dir.parent
+
         sdf_dir = data_dir / "sdf"
         sdf_dir.mkdir(parents=True, exist_ok=True)
 
