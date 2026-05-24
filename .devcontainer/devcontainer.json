@@ -87,7 +87,7 @@
           "PYTHONPATH": "${workspaceFolder}"
         },
         "terminal.integrated.environmentChangesRelaunch": true,
-        "terminal.integrated.fontFamily": "'MesloLGS NF'",
+        "terminal.integrated.fontFamily": "'MesloLGS NF', 'MesloLGS Nerd Font Mono'",
         // --- Files & Git ---
         "files.associations": {
           "*.sh": "shellscript"
