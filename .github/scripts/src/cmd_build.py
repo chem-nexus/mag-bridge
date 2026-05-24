@@ -9,8 +9,8 @@ from pathlib import Path
 
 import click
 
-from _env.config import settings
-from _env.utils import EnvUtils, LogLevel, cli
+from src.config import settings
+from src.utils import EnvUtils, LogLevel, cli
 
 # ---------------------------------------------------------------------------
 # Internal helper (shared by build-backend and build)

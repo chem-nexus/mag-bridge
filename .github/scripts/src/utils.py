@@ -12,7 +12,7 @@ from pathlib import Path
 
 import click
 
-from _env.config import settings
+from src.config import settings
 
 # ---------------------------------------------------------------------------
 # CLI group
