@@ -43,6 +43,7 @@
       "preload.js",
       "logging.js",
       "app-config.js",
+      "http-client.js",
       "package.json"
     ],
     "extraResources": [
