@@ -49,7 +49,7 @@ npm install
 
 ```bash
 # Terminal 1 (in Dev Container)
-./environment fullstack
+magmake fullstack
 ```
 
 Or manually:
@@ -74,13 +74,15 @@ npm run dev
 **Expected behavior:**
 - Electron waits for `http://localhost:4200` (or `host.docker.internal:4200` on Windows)
 - Opens an Electron window for the Angular app
-- HMR works for both Electron and browser
+- Renderer updates are most reliable in Electron with full page reload (`npm run serve-reloader`)
+- Optional HMR mode is available via `npm run serve-hmr` (may be less reliable through container port forwarding)
+- Electron main/preload changes still require restarting `npm run dev` in `electron/`
 
 ## Production Build
 
 ```bash
 cd /path/to/mag-bridge
-./environment build
+magmake build
 ```
 
 **Build output:**
@@ -197,5 +199,4 @@ tail -f ~/magbridge/app.log
 
 - [Dev Container Setup](devcontainers.md)
 - [Frontend (Angular)](../../frontend/README.md)
-- [Environment CLI Launcher](../../environment)
 - [Environment CLI Source](../../.github/scripts/environment.py)
