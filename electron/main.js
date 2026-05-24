@@ -5,7 +5,7 @@ const path = require('path');
 
 const { createLogger } = require('./logging');
 const { getAppConfig, configToString } = require('./app-config');
-const { isLoopbackUrl, requestDirectJson } = require('./http-client');
+// const { isLoopbackUrl, requestDirectJson } = require('./http-client');
 const cfg = getAppConfig();
 const log = createLogger();
 const sdfDir = cfg.userSdfDir;
@@ -168,9 +168,10 @@ app.on('will-quit', () => {
 
 ipcMain.handle('api-request', async (_event, { url, method = 'GET', body = null }) => {
   try {
-    if (isLoopbackUrl(url)) {
-      return await requestDirectJson(url, method, body);
-    }
+    // TEMP TEST: disable direct loopback transport and use standard fetch path.
+    // if (isLoopbackUrl(url)) {
+    //   return await requestDirectJson(url, method, body);
+    // }
 
     const options = {
       method,
