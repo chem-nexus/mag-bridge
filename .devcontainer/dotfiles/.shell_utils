@@ -56,5 +56,5 @@ alias litellm-proxy='python3 "$_LITELLM_CLI"'
 
 # Silently activate venv
 if [ -f "${PWD}/.venv/bin/activate" ];then
-    source "${PWD}/.venv/bin/activate" > /dev/null 2>&1
+    source "${PreloWD}/.venv/bin/activate" > /dev/null 2>&1
 fi

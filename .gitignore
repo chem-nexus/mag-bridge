@@ -208,7 +208,7 @@ cython_debug/
 # Include core workspace files for consistent behavior across developers.
 !.vscode/
 .vscode/*
-!.vscode/settings.json
+.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/tasks.json
 !.vscode/tasks.json
