@@ -1,1 +1,2 @@
 mineru[pipeline]==3.1.14
+litellm[proxy]==1.83.0

@@ -33,15 +33,26 @@ alias gpl='git pull'
 alias gco='git commit -m'
 alias gch='git checkout'
 alias gchm='gch master && gpl'
-alias uvpipr='uv pip install -r requirements.txt -r requirements-ci.txt'
-alias uvpipur='uv pip uninstall -r requirements.txt -r requirements-ci.txt'
+alias uvpipr='uv pip install -r requirements.txt -r requirements-ci.txt -r requirements-dev.txt'
+alias uvpipur='uv pip uninstall -r requirements.txt -r requirements-ci.txt -r requirements-dev.txt'
 alias gpu='git push' 
 alias wpp='which python pip'
 alias gbdl='current=$(git branch --show-current); default=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed "s|^origin/||" || echo "master"); git checkout "$default" && { [ -n "$current" ] && [ "$current" != "$default" ] && git branch -D "$current" || echo "Nie usunięto gałęzi (taka sama jak default lub brak)"; } && git pull'
 
+# --- CLAUDE-SWITCH (VS Code extension provider toggle) ---
+_CLAUDE_SWITCH="$(git rev-parse --show-toplevel 2>/dev/null || echo /workspaces/mag-bridge)/.claude/skills/litellm/switch.py"
+alias claude-switch='python3 "$_CLAUDE_SWITCH"'
+
+
+
+
 # --- TESTAI ALIAS (promptfoo eval harness) ---
 _TESTAI_CLI="$(git rev-parse --show-toplevel 2>/dev/null || echo /workspaces/mag-bridge)/.claude/skills/promptfoo/cli.py"
 alias testai='python3 "$_TESTAI_CLI"'
+
+# --- LITELLM-PROXY ALIAS (local AI proxy lifecycle) ---
+_LITELLM_CLI="$(git rev-parse --show-toplevel 2>/dev/null || echo /workspaces/mag-bridge)/.claude/skills/litellm/cli.py"
+alias litellm-proxy='python3 "$_LITELLM_CLI"'
 
 # Silently activate venv
 if [ -f "${PWD}/.venv/bin/activate" ];then

@@ -5,7 +5,8 @@
   },
   "runArgs": [
     "--shm-size=1g",
-    // "--memory=6g", // hard limit
+    "--memory=16g",
+    "--add-host=ai-gateway:host-gateway",
     "--env-file",
     "${localWorkspaceFolder}/.env"
   ],
@@ -15,13 +16,14 @@
     "source=${localWorkspaceFolderBasename}-claude-config,target=/home/vscode_server/.claude,type=volume"
   ],
   "overrideCommand": true,
-  // "hostRequirements": {
-  //   "memory": "6gb"
-  // },
+  "hostRequirements": {
+    "memory": "6gb"
+  },
   "forwardPorts": [
     4200,
     8000,
     9749,
+    11434,
     15500
   ],
   "portsAttributes": {
@@ -35,6 +37,10 @@
     },
     "9749": {
       "label": "Codebase Memory UI",
+      "onAutoForward": "silent"
+    },
+    "11434": {
+      "label": "LiteLLM Proxy",
       "onAutoForward": "silent"
     },
     "15500": {

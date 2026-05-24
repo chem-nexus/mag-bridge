@@ -40,4 +40,4 @@ fi
 
 # Python Dependencies
 echo "[updateContentCommand]:: Installing Python requirements via uv..."
-uv pip install -r requirements.txt -r requirements-ci.txt
+uv pip install -r requirements.txt -r requirements-ci.txt -r requirements-dev.txt
