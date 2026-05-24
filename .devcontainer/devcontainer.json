@@ -21,14 +21,18 @@
   },
   "forwardPorts": [
     4200,
+    6006,
     8000,
     9749,
-    11434,
     15500
   ],
   "portsAttributes": {
     "4200": {
       "label": "Angular Frontend",
+      "onAutoForward": "silent"
+    },
+    "6006": {
+      "label": "Phoenix UI",
       "onAutoForward": "silent"
     },
     "8000": {
@@ -37,10 +41,6 @@
     },
     "9749": {
       "label": "Codebase Memory UI",
-      "onAutoForward": "silent"
-    },
-    "11434": {
-      "label": "LiteLLM Proxy",
       "onAutoForward": "silent"
     },
     "15500": {
@@ -87,7 +87,7 @@
         "workbench.secondarySideBar.defaultVisibility": "hidden",
         "workbench.startupEditor": "none",
         // --- Terminal & Shell ---
-        "remote.autoForwardPorts": false,
+        "remote.autoForwardPorts": true,
         "terminal.integrated.enableMultiLinePasteWarning": "never",
         "terminal.integrated.env.osx": {
           "PYTHONPATH": "${workspaceFolder}"
@@ -130,6 +130,38 @@
           {
             "name": "GH_TOKEN",
             "value": "${containerEnv:GH_TOKEN}"
+          },
+          {
+            "name": "CLAUDE_CODE_ENABLE_TELEMETRY",
+            "value": "1"
+          },
+          {
+            "name": "CLAUDE_CODE_ENHANCED_TELEMETRY_BETA",
+            "value": "1"
+          },
+          {
+            "name": "OTEL_TRACES_EXPORTER",
+            "value": "otlp"
+          },
+          {
+            "name": "OTEL_METRICS_EXPORTER",
+            "value": "otlp"
+          },
+          {
+            "name": "OTEL_LOGS_EXPORTER",
+            "value": "otlp"
+          },
+          {
+            "name": "OTEL_EXPORTER_OTLP_PROTOCOL",
+            "value": "grpc"
+          },
+          {
+            "name": "OTEL_EXPORTER_OTLP_ENDPOINT",
+            "value": "http://localhost:4317"
+          },
+          {
+            "name": "OTEL_RESOURCE_ATTRIBUTES",
+            "value": "service.name=mag-bridge-claude,deployment.environment=devcontainer"
           }
         ],
         "claudeCode.preferredLocation": "sidebar",

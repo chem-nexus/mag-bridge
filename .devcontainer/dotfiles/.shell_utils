@@ -54,6 +54,10 @@ alias testai='python3 "$_TESTAI_CLI"'
 _LITELLM_CLI="$(git rev-parse --show-toplevel 2>/dev/null || echo /workspaces/mag-bridge)/.claude/skills/litellm/cli.py"
 alias litellm-proxy='python3 "$_LITELLM_CLI"'
 
+# --- PHOENIX ALIAS (LLM observability UI lifecycle) ---
+_PHOENIX_CLI="$(git rev-parse --show-toplevel 2>/dev/null || echo /workspaces/mag-bridge)/.claude/skills/phoenix/cli.py"
+alias phoenix-server='python3 "$_PHOENIX_CLI"'
+
 # Silently activate venv
 if [ -f "${PWD}/.venv/bin/activate" ];then
     source "${PreloWD}/.venv/bin/activate" > /dev/null 2>&1
