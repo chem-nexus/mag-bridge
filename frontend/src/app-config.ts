@@ -2,7 +2,7 @@ export interface AppConfigShape {
   isProd: boolean;
   config: {
     sdf_dir: string;
-    themes: Record<string, unknown>;
+    api_base_url: string;
   };
   [key: string]: unknown;
 }
@@ -32,4 +32,5 @@ export class AppConfig {
   static readonly isProd = rawConfig.isProd;
   static readonly config = rawConfig.config;
   static readonly userSdfDir = rawConfig.config.sdf_dir;
+  static readonly apiBaseUrl = rawConfig.config.api_base_url;
 }
