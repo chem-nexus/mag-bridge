@@ -22,8 +22,8 @@
     "build:prod": "ng build --configuration production",
     "build:dev": "ng build --configuration development",
     "test-angular": "ng test",
-    "serve-reloader": "ng serve --host 0.0.0.0 --live-reload --no-hmr --port 4200 --poll 1000",
-    "serve-hmr": "ng serve --host 0.0.0.0 --live-reload --hmr --port 4200 --poll 1000",
+    "serve-reloader": "ng serve --host 0.0.0.0 --no-hmr --port 4200",
+    "serve-hmr": "ng serve --host 0.0.0.0 --hmr --port 4200",
     "dev-backend": "cd ../ && .venv/bin/python -m uvicorn backend:app --reload"
   },
   "prettier": {
