@@ -7,7 +7,7 @@ from backend.config import settings, translate_path
 from backend.schemas.calculations import ExperimentRequest, InputType
 
 router = APIRouter(tags=["experiments"])
-logger = logging.getLogger("uvicorn.access")
+logger = logging.getLogger(__name__)
 
 
 @router.post("/experiments")
