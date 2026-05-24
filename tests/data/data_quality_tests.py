@@ -1097,40 +1097,636 @@ CALC_DIAMAG_QUALITY_TESTS: list["DataQualityDiamagContrTestsSDF"] = [
         measured_diamag_sus=-239.0,
         literature_reference="No. 323",
     ),
+    # Source: [2] CRC Handbook of Chemistry and Physics International Standard BookNumber: 978-1-4987-5429-3
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acenaphthene.sdf",
+        measured_diamag_sus=-109.9,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acenaphthylene.sdf",
+        measured_diamag_sus=-111.6,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acetaldehyde.sdf",
+        measured_diamag_sus=-22.2,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acetamide.sdf",
+        measured_diamag_sus=-33.9,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acetic_acid.sdf", measured_diamag_sus=-31.8, literature_reference="[2] 3-576", description="exp data = calcd data", skip_test=True
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acetic_anhydride.sdf",
+        measured_diamag_sus=-52.8,
+        literature_reference="[2] 3-576",
+        description="exp data = calcd data",
+        skip_test=True,
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acetone.sdf",
+        measured_diamag_sus=-33.8,
+        literature_reference="[2] 3-576",
+        description="exp data = calcd data",
+        skip_test=True,
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acetonitrile.sdf",
+        measured_diamag_sus=-27.8,
+        literature_reference="[2] 3-576",
+        description="exp data = calcd data",
+        skip_test=True,
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acetophenone.sdf",
+        measured_diamag_sus=-72.5,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acetyl_chloride.sdf",
+        measured_diamag_sus=-39.3,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acetylene.sdf",
+        measured_diamag_sus=-20.8,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="acridine.sdf",
+        measured_diamag_sus=-118.8,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="allene.sdf",
+        measured_diamag_sus=-25.3,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="allyl_alcohol.sdf",
+        measured_diamag_sus=-36.7,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="allylamine.sdf",
+        measured_diamag_sus=-40.1,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="aniline.sdf",
+        measured_diamag_sus=-62.4,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="anisole.sdf",
+        measured_diamag_sus=-72.2,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="anthracene.sdf",
+        measured_diamag_sus=-129.8,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="9,10-anthracenedione.sdf",
+        measured_diamag_sus=-113.0,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="trans-azobenzene.sdf",
+        measured_diamag_sus=-106.8,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="azulene.sdf",
+        measured_diamag_sus=-123.7,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzaldehyde.sdf",
+        measured_diamag_sus=-60.7,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzamide.sdf",
+        measured_diamag_sus=-72.0,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzene.sdf", measured_diamag_sus=-54.8, literature_reference="[2] 3-576", description="exp data = calcd data", skip_test=True
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzeneacetic_acid.sdf",
+        measured_diamag_sus=-82.4,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzeneacetonitrile.sdf",
+        measured_diamag_sus=-76.9,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1,2-benzenediamine.sdf",
+        measured_diamag_sus=-72.5,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1,3-benzenediamine.sdf",
+        measured_diamag_sus=-70.4,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1,4-benzenediamine.sdf",
+        measured_diamag_sus=-70.7,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzil.sdf",
+        measured_diamag_sus=-106.8,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzonitrile.sdf", measured_diamag_sus=-65.2, literature_reference="[2] 3-576", description="exp data = calcd data", skip_test=True
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzophenone.sdf",
+        measured_diamag_sus=-109.6,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="p-benzoquinone.sdf",
+        measured_diamag_sus=-36,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzyl_acetate.sdf",
+        measured_diamag_sus=-93.2,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzyl_alcohol.sdf",
+        measured_diamag_sus=-71.8,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="benzyl_benzoate.sdf",
+        measured_diamag_sus=-132.2,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="biphenyl.sdf",
+        measured_diamag_sus=-103.3,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="bromobenzene.sdf",
+        measured_diamag_sus=-78.1,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1-bromobutane.sdf",
+        measured_diamag_sus=-77.1,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="bromochloromethane.sdf",
+        measured_diamag_sus=-55.1,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="bromodichloromethane.sdf",
+        measured_diamag_sus=-66.3,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="bromoethane.sdf",
+        measured_diamag_sus=-54.7,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="bromomethane.sdf",
+        measured_diamag_sus=-42.8,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1-bromo-2-methylpropane.sdf",
+        measured_diamag_sus=-79.9,
+        literature_reference="[2] 3-576",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1-bromonaphthalene.sdf",
+        measured_diamag_sus=-115.9,
+        literature_reference="[2] 3-576",
+    ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
-    #     literature_reference="",
+    #     literature_reference="[2] 3-576",
     # ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
-    #     literature_reference="",
+    #     literature_reference="[2] 3-576",
     # ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
-    #     literature_reference="",
+    #     literature_reference="[2] 3-576",
     # ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
-    #     literature_reference="",
+    #     literature_reference="[2] 3-576",
     # ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
-    #     literature_reference="",
+    #     literature_reference="[2] 3-576",
     # ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
-    #     literature_reference="",
+    #     literature_reference="[2] 3-576",
     # ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
-    #     literature_reference="",
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
+    # ),
+    # DataQualityDiamagContrTestsSDF(
+    #     sdf_file="",
+    #     measured_diamag_sus=,
+    #     literature_reference="[2] 3-576",
     # ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
