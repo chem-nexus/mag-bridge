@@ -41,3 +41,13 @@ fi
 # Python Dependencies
 echo "[updateContentCommand]:: Installing Python requirements via uv..."
 uv pip install -r requirements.txt -r requirements-ci.txt -r requirements-dev.txt
+
+# Playwright Chromium browser binary — version tied to playwright in requirements-dev.txt.
+# OS-level deps are baked into the Dockerfile image (INSTALL_CHROMIUM=1).
+# Ephemeral by design: each rebuild fetches the exact revision for the pinned version.
+if .venv/bin/python -c "import playwright" 2>/dev/null; then
+    echo "[updateContentCommand]:: Installing Playwright Chromium browser..."
+    .venv/bin/playwright install chromium
+else
+    echo "[updateContentCommand]:: Playwright not installed, skipping browser download."
+fi

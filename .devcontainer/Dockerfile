@@ -32,12 +32,17 @@ RUN mkdir -p /commandhistory /home/${USERNAME}/.claude \
 
 RUN pip install --no-cache-dir uv
 
+# --- Feature flags (1=install, 0=skip) ---
+ARG INSTALL_CBM=1
+ARG INSTALL_CHROMIUM=1
+
 # codebase-memory-mcp v0.6.1 — built from source with UI assets embedded
 # UI variant requires Node.js (for graph-ui frontend build) + zlib (C linker).
 # Node.js is installed temporarily and removed after the build; the devcontainer
 # Node 22 feature installs its own copy later with no conflict.
 # The resulting binary is fully static — no GLIBC constraint.
-RUN apt-get update && \
+RUN if [ "$INSTALL_CBM" = "1" ]; then \
+    apt-get update && \
     apt-get install -y --no-install-recommends zlib1g-dev && \
     curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
@@ -47,7 +52,35 @@ RUN apt-get update && \
     install -m 755 build/c/codebase-memory-mcp /usr/local/bin/codebase-memory-mcp && \
     cd / && rm -rf /tmp/cbm-src && \
     apt-get remove -y nodejs npm && apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/* /root/.npm
+    rm -rf /var/lib/apt/lists/* /root/.npm; \
+    fi
+
+# Playwright Chromium OS dependencies — sourced from playwright/nativeDeps.ts debian12-x64.
+# Browser binary itself is downloaded in updateContentCommand.sh (version tied to requirements-dev.txt).
+RUN if [ "$INSTALL_CHROMIUM" = "1" ]; then \
+    apt-get update && apt-get install -y --no-install-recommends \
+        libasound2 \
+        libatk-bridge2.0-0 \
+        libatk1.0-0 \
+        libatspi2.0-0 \
+        libcairo2 \
+        libcups2 \
+        libdbus-1-3 \
+        libdrm2 \
+        libgbm1 \
+        libglib2.0-0 \
+        libnspr4 \
+        libnss3 \
+        libpango-1.0-0 \
+        libx11-6 \
+        libxcb1 \
+        libxcomposite1 \
+        libxdamage1 \
+        libxfixes3 \
+        libxkbcommon0 \
+        libxrandr2 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*; \
+    fi
 
 # GitHub CLI — version pinned. To upgrade: bump both version numbers in the URL.
 # Arch-agnostic: $(dpkg --print-architecture) resolves arm64/amd64 at build time.
