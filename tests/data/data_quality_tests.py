@@ -1898,131 +1898,135 @@ CALC_DIAMAG_QUALITY_TESTS: list["DataQualityDiamagContrTestsSDF"] = [
         measured_diamag_sus=-81.1,
         literature_reference="[2] 3-577",
     ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="[2] 3-577",
-    # ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="2,4-dimethylpyridine.sdf",
+        measured_diamag_sus=-71.3,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="2,6-dimethylpyridine.sdf",
+        measured_diamag_sus=-72.5,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="dimethyl_sulfide.sdf",
+        measured_diamag_sus=-44.9,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="dimethyl_terephthalate.sdf",
+        measured_diamag_sus=-101.6,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1,4-dioxane.sdf",
+        measured_diamag_sus=-52.2,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="diphenylacetylene.sdf",
+        measured_diamag_sus=-116,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="diphenylamine.sdf",
+        measured_diamag_sus=-108.4,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1,2-diphenylethane.sdf",
+        measured_diamag_sus=-127.8,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="diphenylmethane.sdf",
+        measured_diamag_sus=-116.0,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="dipropyl_ether.sdf",
+        measured_diamag_sus=-79.4,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="dodecanoic_acid.sdf",
+        measured_diamag_sus=-113.0,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1,2-epoxybutane.sdf",
+        measured_diamag_sus=-54.8,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethane.sdf",
+        measured_diamag_sus=-26.8,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1,2-ethanediamine.sdf",
+        measured_diamag_sus=-46.5,
+        literature_reference="[2] 3-577",
+        description="exp data = calcd data",
+        skip_test=True,
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="1,2-ethanediol.sdf",
+        measured_diamag_sus=-38.8,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethanethiol.sdf",
+        measured_diamag_sus=-47.0,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethanol.sdf",
+        measured_diamag_sus=-33.6,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethoxybenzene.sdf",
+        measured_diamag_sus=-84.5,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethyl_acetate.sdf",
+        measured_diamag_sus=-54.1,
+        literature_reference="[2] 3-577",
+        description="exp data = calcd data",
+        skip_test=True,
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethyl_acetoacetate.sdf",
+        measured_diamag_sus=-71.7,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="N-ethylaniline.sdf",
+        measured_diamag_sus=-85.6,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethylbenzene.sdf",
+        measured_diamag_sus=-77.2,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethyl_benzoate.sdf",
+        measured_diamag_sus=-93.8,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethyl_carbamate.sdf",
+        measured_diamag_sus=-57.0,
+        literature_reference="[2] 3-577",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="ethyl_cyanoacetate.sdf",
+        measured_diamag_sus=-67.3,
+        literature_reference="[2] 3-577",
+    ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
