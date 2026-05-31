@@ -66,6 +66,7 @@
     "CBM_CACHE_DIR": "/home/vscode_server/.claude/.cbm-cache",
     "UV_LINK_MODE": "copy",
     "HISTFILE": "/commandhistory/.zsh_history",
+    "PLAYWRIGHT_BROWSERS_PATH": "${containerWorkspaceFolder}/.cache/ms-playwright",
   },
   "customizations": {
     "vscode": {
@@ -111,6 +112,33 @@
         // --- AI (Claude & Chat) ---
         "chat.useClaudeHooks": true,
         "claudeCode.environmentVariables": [
+          // --- Local AI: UNCOMMENT this block + Rebuild Container to route the extension to LM Studio on the host. ---
+          // While active, EVERY /model entry (incl. Opus/Sonnet/Haiku) hits LM Studio, NOT cloud — comment out + rebuild to return to cloud/Pro.
+          {
+            "name": "ANTHROPIC_BASE_URL",
+            "value": "http://host.docker.internal:1234"
+          },
+          {
+            "name": "ANTHROPIC_AUTH_TOKEN",
+            "value": "dummy"
+          },
+          {
+            "name": "ANTHROPIC_CUSTOM_MODEL_OPTION",
+            "value": "default_model"
+          },
+          {
+            "name": "ANTHROPIC_DEFAULT_OPUS_MODEL",
+            "value": "default_model"
+          },
+          {
+            "name": "ANTHROPIC_DEFAULT_SONNET_MODEL",
+            "value": "default_model"
+          },
+          {
+            "name": "ANTHROPIC_DEFAULT_HAIKU_MODEL",
+            "value": "default_model"
+          },
+          // --- end Local AI ---
           {
             "name": "PYTHONPATH",
             "value": "${workspaceFolder}:${workspaceFolder}/src:${workspaceFolder}/tests"

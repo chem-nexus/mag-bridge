@@ -21,7 +21,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libsm6 \
     libice6 \
     pulseaudio-utils \
-    libfontconfig1 && \
+    libfontconfig1 \
+    iputils-ping \
+    netcat-openbsd && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV PROJECT_DIR=/workspaces/mag-bridge
