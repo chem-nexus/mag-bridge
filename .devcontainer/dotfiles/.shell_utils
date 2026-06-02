@@ -39,9 +39,9 @@ alias gpu='git push'
 alias wpp='which python pip'
 alias gbdl='current=$(git branch --show-current); default=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed "s|^origin/||" || echo "master"); git checkout "$default" && { [ -n "$current" ] && [ "$current" != "$default" ] && git branch -D "$current" || echo "Nie usunięto gałęzi (taka sama jak default lub brak)"; } && git pull'
 
-# --- CLAUDE-SWITCH (VS Code extension provider toggle) ---
-_CLAUDE_SWITCH="$(git rev-parse --show-toplevel 2>/dev/null || echo /workspaces/mag-bridge)/.claude/skills/litellm/switch.py"
-alias claude-switch='python3 "$_CLAUDE_SWITCH"'
+# --- AI-SWITCH (VS Code extension provider toggle) ---
+_AI_SWITCH="$(git rev-parse --show-toplevel 2>/dev/null || echo /workspaces/mag-bridge)/.devcontainer/scripts/ai-switch.py"
+alias ai-switch='python3 "$_AI_SWITCH"'
 
 
 

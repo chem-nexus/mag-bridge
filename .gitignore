@@ -254,3 +254,4 @@ external_repos/
 node_modules/
 tests/reports/
 .claude/
+.vscode/settings.json

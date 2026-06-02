@@ -1,0 +1,38 @@
+{
+  "name": "ai-switch",
+  "displayName": "AI Switch",
+  "description": "Switch the Claude Code extension between AI providers (local / gemini / anthropic) with an automatic window reload.",
+  "version": "0.0.1",
+  "publisher": "magbridge",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-switch.select",
+        "title": "Select Provider",
+        "category": "AI Switch"
+      },
+      {
+        "command": "ai-switch.local",
+        "title": "Use Local",
+        "category": "AI Switch"
+      },
+      {
+        "command": "ai-switch.gemini",
+        "title": "Use Gemini",
+        "category": "AI Switch"
+      },
+      {
+        "command": "ai-switch.anthropic",
+        "title": "Use Anthropic (Claude Code)",
+        "category": "AI Switch"
+      }
+    ]
+  }
+}

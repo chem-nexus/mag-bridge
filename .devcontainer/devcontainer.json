@@ -67,7 +67,11 @@
     "UV_LINK_MODE": "copy",
     "HISTFILE": "/commandhistory/.zsh_history",
     "PLAYWRIGHT_BROWSERS_PATH": "${containerWorkspaceFolder}/.cache/ms-playwright",
-    "CUSTOM_LLM_ENDPOINT": "${localEnv:CUSTOM_LLM_ENDPOINT}",
+    // ai-switch provider endpoints — values live in .env (loaded via --env-file), forwarded here for the extension/terminals.
+    "LOCAL_BASE_URL": "${containerEnv:LOCAL_BASE_URL}",
+    "LOCAL_AUTH_TOKEN": "${containerEnv:LOCAL_AUTH_TOKEN}",
+    "GEMINI_BASE_URL": "${containerEnv:GEMINI_BASE_URL}",
+    "GEMINI_AUTH_TOKEN": "${containerEnv:GEMINI_AUTH_TOKEN}",
   },
   "customizations": {
     "vscode": {
@@ -275,5 +279,6 @@
   "updateContentCommand": "bash .devcontainer/updateContentCommand.sh",
   "onCreateCommand": "echo '==> [Lifecycle: onCreateCommand] Base OS built. Workspace not mounted yet.'",
   "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
-  "postStartCommand": "echo '==> [Lifecycle: postStartCommand] Container awake.'"
+  "postStartCommand": "echo '==> [Lifecycle: postStartCommand] Container awake.'",
+  "postAttachCommand": "bash .devcontainer/scripts/install-ai-switch-extension.sh"
 }
