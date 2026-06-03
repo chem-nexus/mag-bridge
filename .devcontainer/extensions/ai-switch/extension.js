@@ -14,8 +14,8 @@ const execFile = util.promisify(cp.execFile);
 
 const PROVIDERS = [
   { label: "$(home) Local", detail: "Self-hosted LLM — LOCAL_BASE_URL", value: "local" },
-  { label: "$(sparkle) Gemini", detail: "GEMINI_BASE_URL", value: "gemini" },
-  { label: "$(cloud) Anthropic", detail: "Claude Code Pro — no override", value: "anthropic" },
+  { label: "$(sparkle) Gemini", detail: "Gemini - GEMINI_BASE_URL", value: "gemini" },
+  { label: "$(cloud) Anthropic", detail: "Claude Code — subscription", value: "anthropic" },
 ];
 
 function scriptPath() {
