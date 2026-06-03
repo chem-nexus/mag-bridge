@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VS Code Window Forensics &mdash; 2026-06-03 22:16:47</title>
+<style>
+:root{
+  --bg:#0b0e14; --panel:#11151f; --panel2:#0e121b; --line:#1e2532;
+  --ink:#e6e1d3; --muted:#8b93a5; --mono:#aeb6c4;
+  --amber:#ffb454; --red:#ff5370; --green:#c3e88d; --cyan:#89ddff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1200px 600px at 15% -10%, #16263a 0%, transparent 55%),
+    radial-gradient(900px 500px at 110% 10%, #2a1a23 0%, transparent 50%),
+    var(--bg);
+  color:var(--ink);
+  font-family:"Charter","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  line-height:1.55; padding:48px 20px; min-height:100vh;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.mono{font-family:"JetBrains Mono","SF Mono","Menlo","Consolas",monospace}
+header{
+  border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:32px;
+  animation:rise .6s ease both;
+}
+.kicker{
+  font-family:"JetBrains Mono","SF Mono",monospace; font-size:11px;
+  letter-spacing:.32em; text-transform:uppercase; color:var(--amber);
+}
+h1{font-size:34px;font-weight:600;letter-spacing:-.01em;margin:6px 0 10px}
+.meta{font-size:13px;color:var(--muted)}
+.meta code{color:var(--cyan);font-family:"JetBrains Mono",monospace}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 34px}
+.card{
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  border:1px solid var(--line);border-radius:12px;padding:18px 16px;
+  animation:rise .6s ease both;
+}
+.card .n{font-family:"JetBrains Mono",monospace;font-size:30px;font-weight:600;color:var(--ink)}
+.card .l{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.card.alert .n{color:var(--red)}
+.card.ok .n{color:var(--green)}
+h2{
+  font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--mono);margin:36px 0 14px;
+  display:flex;align-items:center;gap:10px;
+}
+h2::before{content:"";width:8px;height:8px;background:var(--amber);border-radius:2px;transform:rotate(45deg)}
+.finding{
+  background:var(--panel);border:1px solid var(--line);border-left-width:3px;
+  border-radius:10px;padding:16px 18px;margin-bottom:12px;animation:rise .6s ease both;
+}
+.finding.high{border-left-color:var(--red)}
+.finding.medium{border-left-color:var(--amber)}
+.finding.info{border-left-color:var(--cyan)}
+.finding .ttl{font-size:18px;font-weight:600;display:flex;align-items:center;gap:10px}
+.badge{
+  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;padding:3px 8px;border-radius:5px;border:1px solid var(--line);
+}
+.badge.high{color:var(--red);border-color:#3a2230}
+.badge.medium{color:var(--amber);border-color:#3a3020}
+.badge.info{color:var(--cyan);border-color:#1c3340}
+.finding p{font-size:14px;color:var(--ink);margin-top:8px}
+.finding .fix{font-size:13px;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.finding .fix b{color:var(--green);font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13px;animation:rise .6s ease both}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+td.mono,td.num{font-family:"JetBrains Mono",monospace}
+td.num{text-align:right;color:var(--mono)}
+tr.peak td{background:rgba(255,83,112,.08)}
+tr.peak td:first-child{box-shadow:inset 3px 0 0 var(--red)}
+.pill{display:inline-block;padding:2px 8px;border-radius:20px;font-family:"JetBrains Mono",monospace;font-size:11px}
+.pill.hi{background:rgba(255,83,112,.14);color:var(--red)}
+.pill.lo{background:rgba(195,232,141,.12);color:var(--green)}
+.extlist{display:flex;flex-wrap:wrap;gap:8px}
+.ext{
+  font-family:"JetBrains Mono",monospace;font-size:12px;background:var(--panel);
+  border:1px solid var(--line);border-radius:6px;padding:6px 10px;color:var(--mono);
+}
+.ext b{color:var(--amber)}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style></head>
+<body><div class="wrap">
+  <header>
+    <div class="kicker">VS Code &middot; Window Spawn Forensics</div>
+    <h1>Runaway-Window Diagnostic Report</h1>
+    <div class="meta">
+      Generated <code>2026-06-03 22:16:47</code><br>
+      Scanned <code>/Users/mir/Library/Application Support/Code/logs</code> &middot; dev-container target <code>/Users/mir/PycharmProjects/mag-bridge</code>
+    </div>
+  </header>
+
+  <div class="cards"><div class="card alert" style="animation-delay:0.00s"><div class="n">33</div><div class="l">Peak windows / session</div></div><div class="card " style="animation-delay:0.05s"><div class="n">10</div><div class="l">Sessions analyzed</div></div><div class="card alert" style="animation-delay:0.10s"><div class="n">77</div><div class="l">Dev-container re-resolves</div></div><div class="card alert" style="animation-delay:0.15s"><div class="n">2</div><div class="l">High-severity findings</div></div></div>
+
+  <h2>Verdict</h2>
+  <div class="finding high" style="animation-delay:0.00s"><div class="ttl">Window-restore avalanche<span class="badge high">high</span></div><p>Window count peaked at 33. It jumped from 25 (20260603T210934) to 33 (20260603T214859) across a relaunch — restored windows are compounding instead of being closed.</p><div class="fix"><b>Fix &rarr;</b> Set &quot;window.restoreWindows&quot;: &quot;one&quot; in settings.json, fully quit (Cmd+Q), relaunch. One-shot stop-gap: defaults write com.microsoft.VSCode ApplePersistenceIgnoreState -bool yes</div></div><div class="finding high" style="animation-delay:0.04s"><div class="ttl">Dev-container reconnect loop<span class="badge high">high</span></div><p>remote-containers re-resolved the dev-container authority 77 time(s) total. Target project: /Users/mir/PycharmProjects/mag-bridge. Repeated authority resolution usually means a flaky Docker context or an auto-reopen-in-container loop, which spawns a fresh window each cycle.</p><div class="fix"><b>Fix &rarr;</b> Verify the Docker context is stable (the config referenced context &#x27;desktop-linux&#x27;). Disable automatic reopen-in-container while debugging, raise dev.containers.connectionTimeout, and confirm the Docker socket / VM isn&#x27;t dropping.</div></div><div class="finding medium" style="animation-delay:0.08s"><div class="ttl">Crash / rapid-relaunch fingerprint<span class="badge medium">medium</span></div><p>Sessions 20260603T210858 and 20260603T210934 started only 36s apart — a hard crash or forced relaunch. Combined with window restore, this is what kicks off the cascade.</p><div class="fix"><b>Fix &rarr;</b> Check Console.app for VS Code crash reports around that time; a crash during a dev-container resolve is the likely trigger.</div></div><div class="finding info" style="animation-delay:0.12s"><div class="ttl">MCP gateway is NOT the cause<span class="badge info">info</span></div><p>MCP gateway showed one client per window with clean shutdown teardown, and no window-open commands were issued through it. The MCP churn is a symptom of the window storm, not its source.</p><div class="fix"><b>Fix &rarr;</b> No action needed on the MCP side.</div></div>
+
+  <h2>Session Timeline</h2>
+  <table>
+    <thead><tr>
+      <th>Session</th><th>Started</th><th>Windows</th>
+      <th>DevC Resolves</th><th>MCP Wins</th><th>MCP Disc.</th>
+    </tr></thead>
+    <tbody><tr class=""><td class="mono">20260602T133253</td><td class="mono">06-02 13:32:53</td><td class="num"><span class="pill lo">1</span></td><td class="num">1</td><td class="num">1</td><td class="num">1</td></tr><tr class=""><td class="mono">20260602T213932</td><td class="mono">06-02 21:39:32</td><td class="num"><span class="pill lo">1</span></td><td class="num">5</td><td class="num">1</td><td class="num">5</td></tr><tr class=""><td class="mono">20260603T125355</td><td class="mono">06-03 12:53:55</td><td class="num"><span class="pill lo">1</span></td><td class="num">2</td><td class="num">1</td><td class="num">3</td></tr><tr class=""><td class="mono">20260603T125615</td><td class="mono">06-03 12:56:15</td><td class="num"><span class="pill lo">1</span></td><td class="num">2</td><td class="num">1</td><td class="num">6</td></tr><tr class=""><td class="mono">20260603T125855</td><td class="mono">06-03 12:58:55</td><td class="num"><span class="pill lo">1</span></td><td class="num">2</td><td class="num">1</td><td class="num">2</td></tr><tr class=""><td class="mono">20260603T171340</td><td class="mono">06-03 17:13:40</td><td class="num"><span class="pill lo">1</span></td><td class="num">1</td><td class="num">1</td><td class="num">1</td></tr><tr class=""><td class="mono">20260603T171533</td><td class="mono">06-03 17:15:33</td><td class="num"><span class="pill lo">1</span></td><td class="num">7</td><td class="num">1</td><td class="num">9</td></tr><tr class=""><td class="mono">20260603T210858</td><td class="mono">06-03 21:08:58</td><td class="num"><span class="pill lo">1</span></td><td class="num">1</td><td class="num">1</td><td class="num">2</td></tr><tr class=""><td class="mono">20260603T210934</td><td class="mono">06-03 21:09:34</td><td class="num"><span class="pill hi">25</span></td><td class="num">23</td><td class="num">24</td><td class="num">25</td></tr><tr class="peak"><td class="mono">20260603T214859</td><td class="mono">06-03 21:48:59</td><td class="num"><span class="pill hi">33</span></td><td class="num">33</td><td class="num">33</td><td class="num">33</td></tr></tbody>
+  </table>
+
+  <h2>Extension Activation Hotspots</h2>
+  <div class="extlist"><span class="ext">ms-vscode-remote.remote-containers <b>86</b></span><span class="ext">alefragnani.project-manager <b>56</b></span><span class="ext">ms-vscode-remote.remote-wsl <b>56</b></span><span class="ext">vscode.github-authentication <b>56</b></span><span class="ext">vscode.microsoft-authentication <b>23</b></span><span class="ext">mechatroner.rainbow-csv <b>9</b></span><span class="ext">vscode.emmet <b>9</b></span><span class="ext">GitHub.copilot-chat <b>9</b></span><span class="ext">vscode.git-base <b>9</b></span><span class="ext">vscode.git <b>9</b></span><span class="ext">vscode.github <b>9</b></span><span class="ext">kamikillerto.vscode-colorize <b>9</b></span></div>
+
+  <footer>
+    Read-only analysis of VS Code session logs. Heuristic findings &mdash; verify
+    crash reports in Console.app before acting on production machines.
+  </footer>
+</div></body></html>

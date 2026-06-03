@@ -92,6 +92,8 @@
         "workbench.colorCustomizations": {},
         "workbench.secondarySideBar.defaultVisibility": "hidden",
         "workbench.startupEditor": "none",
+        // Reduce dev-container reconnect storms (see .devcontainer/vscode-report-2026-06-03.html)
+        "dev.containers.connectionTimeout": 120,
         // --- Terminal & Shell ---
         "remote.autoForwardPorts": true,
         "terminal.integrated.enableMultiLinePasteWarning": "never",
@@ -172,6 +174,7 @@
         ],
         "claudeCode.preferredLocation": "sidebar",
         "claudeCode.selectedModel": "default",
+        "claudeCode.initialPermissionMode": "acceptEdits",
         // --- Python, Jupyter & Testing ---
         "jupyter.askForKernelRestart": false,
         "jupyter.notebookFileRoot": "${workspaceFolder}",
@@ -253,26 +256,26 @@
         }
       },
       "extensions": [
-        "angular.ng-template",
-        "anthropic.claude-code",
-        "bierner.github-markdown-preview",
-        "charliermarsh.ruff",
-        "eamodio.gitlens",
-        "esbenp.prettier-vscode",
-        "tamasfe.even-better-toml",
-        "ionutvmi.path-autocomplete",
-        "james-yu.latex-workshop",
-        "mechatroner.rainbow-csv",
-        "ms-python.debugpy",
-        "ms-python.python",
-        "ms-python.vscode-pylance",
-        "ms-toolsai.jupyter",
-        "ms-vscode.test-adapter-converter",
+        "angular.ng-template@22.0.0",
+        "anthropic.claude-code@2.1.161",
+        "bierner.github-markdown-preview@0.4.0",
+        "charliermarsh.ruff@2026.46.0",
+        "eamodio.gitlens@18.0.0",
+        "esbenp.prettier-vscode@12.4.0",
+        "tamasfe.even-better-toml@0.21.2",
+        "ionutvmi.path-autocomplete@1.25.0",
+        "james-yu.latex-workshop@10.16.1",
+        "mechatroner.rainbow-csv@3.24.1",
+        "ms-python.debugpy@2026.6.0",
+        "ms-python.python@2026.4.0",
+        "ms-python.vscode-pylance@2026.2.1",
+        "ms-toolsai.jupyter@2025.9.1",
+        "ms-vscode.test-adapter-converter@0.2.1",
         "ms-vscode.vscode-typescript-next",
-        "mutantdino.resourcemonitor",
-        "oderwat.indent-rainbow",
-        "postman.postman-for-vscode",
-        "redhat.vscode-yaml"
+        "mutantdino.resourcemonitor@1.0.7",
+        "oderwat.indent-rainbow@8.3.1",
+        "postman.postman-for-vscode@1.19.1",
+        "redhat.vscode-yaml@1.23.0"
       ]
     }
   },
