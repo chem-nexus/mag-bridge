@@ -1,15 +1,6 @@
 # Local binaries (Grype, etc.)
 bin/
 
-# Security scan reports
-security/
-
-# Local binaries (Grype, etc.)
-bin/
-
-# Security scan reports
-security/
-
 # Byte-compiled / optimized / DLL files
 bondtype_coverage.json
 __pycache__/
@@ -255,3 +246,5 @@ node_modules/
 tests/reports/
 .claude/
 .vscode/settings.json
+# autoresearch run artifacts (loop output at project root)
+/autoresearch/
