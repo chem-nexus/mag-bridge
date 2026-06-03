@@ -1,39 +1,39 @@
 #!/usr/bin/env bash
 # Build + install the "AI Switch" VS Code extension into the dev container.
 #
-# Invoked from postAttachCommand (runs after the VS Code server attaches, so the
-# `code` CLI exists — postStartCommand fires too early and the CLI is missing).
-# Idempotent and cached: if the extension is already installed (survives container
-# restarts), it exits immediately. Builds
-# a minimal VSIX with `zip` (no vsce dependency) and lets `code --install-extension`
-# register it, so VS Code's internal extension index is never hand-edited.
+# Invoked from postAttachCommand. We deliberately use the HEADLESS server binary
+# (bin/code-server), NOT the remote-cli `code`. The remote-cli routes extension
+# commands through the editor's IPC socket (VSCODE_IPC_HOOK_CLI), which is not
+# ready when postAttach fires — so `code --install-extension` failed with
+# "code or code-insiders is not installed". code-server manages the extensions
+# dir directly: no IPC, no running window, no attach-timing dependency.
+# Idempotent and cached: if already installed it exits immediately. Builds a
+# minimal VSIX with `zip` (no vsce dependency).
 set -euo pipefail
 
 EXT_SRC="$(cd "$(dirname "$0")/../extensions/ai-switch" && pwd)"
 EXT_ID="magbridge.ai-switch"
 VERSION="0.0.1"
 
-# --- Resolve the VS Code Server CLI (not placed until the server attaches) ---
-# Poll briefly: postAttachCommand normally runs after the CLI exists, but tolerate
-# a slow attach rather than skipping. Globs are nullglob-guarded.
+# --- Resolve the headless code-server binary (unpacked when the server installs) ---
+# Poll briefly: tolerate a slow server unpack rather than skipping. Only the file
+# on disk is needed — code-server needs no running server. Globs are nullglob-guarded.
 shopt -s nullglob
-resolve_code() {
+resolve_code_server() {
     local c
-    c="$(command -v code 2>/dev/null || true)"
-    [ -n "$c" ] && { echo "$c"; return; }
-    for c in /vscode/vscode-server/bin/*/bin/remote-cli/code \
-             "$HOME"/.vscode-server/bin/*/bin/remote-cli/code; do
+    for c in /vscode/vscode-server/bin/*/bin/code-server \
+             "$HOME"/.vscode-server/bin/*/bin/code-server; do
         [ -x "$c" ] && { echo "$c"; return; }
     done
 }
 CODE=""
 for _ in $(seq 1 20); do
-    CODE="$(resolve_code)"
+    CODE="$(resolve_code_server)"
     [ -n "$CODE" ] && break
     sleep 1
 done
 if [ -z "$CODE" ]; then
-    echo "[ai-switch] VS Code server CLI not found after waiting; skipping."
+    echo "[ai-switch] code-server binary not found after waiting; skipping." >&2
     exit 0
 fi
 
@@ -81,8 +81,18 @@ EOF
 ( cd "$BUILD" && zip -q -r -X "$VSIX" . )
 
 echo "[ai-switch] Installing extension..."
-if "$CODE" --install-extension "$VSIX" --force >/dev/null 2>&1; then
-    echo "[ai-switch] Installed. Reload the window to activate."
+# Surface install output (don't swallow it) and fail loudly. Silently dropping
+# this is what left fresh clients with no extension and no error.
+if ! "$CODE" --install-extension "$VSIX" --force; then
+    echo "[ai-switch] ERROR: 'code-server --install-extension' failed (see output above)." >&2
+    exit 1
+fi
+
+# Verify it actually registered — --install-extension can exit 0 without
+# persisting. Never let a broken bootstrap pass quietly again.
+if "$CODE" --list-extensions 2>/dev/null | grep -qix "$EXT_ID"; then
+    echo "[ai-switch] Installed: $EXT_ID. Reload the window to activate."
 else
-    echo "[ai-switch] Install failed (non-fatal)." >&2
+    echo "[ai-switch] ERROR: $EXT_ID not present after install — bootstrap failed." >&2
+    exit 1
 fi

@@ -280,5 +280,5 @@
   "onCreateCommand": "echo '==> [Lifecycle: onCreateCommand] Base OS built. Workspace not mounted yet.'",
   "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
   "postStartCommand": "echo '==> [Lifecycle: postStartCommand] Container awake.'",
-  "postAttachCommand": "bash .devcontainer/scripts/install-ai-switch-extension.sh"
+  "postAttachCommand": "bash .devcontainer/postAttachCommand.sh"
 }
