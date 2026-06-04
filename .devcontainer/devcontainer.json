@@ -16,7 +16,7 @@
     "source=${localWorkspaceFolder}/.devcontainer/dotfiles/.zshrc,target=/home/vscode_server/.zshrc,type=bind",
     "source=${localWorkspaceFolder}/.devcontainer/dotfiles/.p10k.zsh,target=/home/vscode_server/.p10k.zsh,type=bind",
     "source=${localWorkspaceFolderBasename}-p10k-theme,target=/home/vscode_server/powerlevel10k,type=volume",
-    "source=${localWorkspaceFolderBasename}-claude-config,target=/home/vscode_server/.claude,type=volume",
+    "source=${localWorkspaceFolderBasename}-claude-config,target=/home/vscode_server/.claude,type=volume"
   ],
   "overrideCommand": true,
   "hostRequirements": {
@@ -27,7 +27,11 @@
     6006,
     8000,
     9749,
-    15500
+    15500,
+    8080,
+    3000,
+    9090,
+    9092
   ],
   "portsAttributes": {
     "4200": {
@@ -48,6 +52,22 @@
     },
     "15500": {
       "label": "Promptfoo UI",
+      "onAutoForward": "silent"
+    },
+    "8080": {
+      "label": "Iron Proxy Server",
+      "onAutoForward": "silent"
+    },
+    "3000": {
+      "label": "Grafana UI",
+      "onAutoForward": "silent"
+    },
+    "9090": {
+      "label": "Iron Proxy Metrics",
+      "onAutoForward": "silent"
+    },
+    "9092": {
+      "label": "Iron Proxy Mgmt",
       "onAutoForward": "silent"
     }
   },
@@ -88,6 +108,9 @@
     "GIT_SSL_CAINFO": "/etc/iron-proxy/ca.crt",
     "DO_NOT_TRACK": "1",
     "NODE_USE_ENV_PROXY": "1",
+    // iron-proxy OTEL export → Loki (http/protobuf, port 3100)
+    "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:3100/otlp",
+    "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf"
   },
   "customizations": {
     "vscode": {

@@ -26,10 +26,7 @@ import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve()
-ROOT_DIR: Path = next(
-    p for p in _here.parents
-    if (p / "requirements.txt").exists() or (p / ".claude").is_dir()
-)
+ROOT_DIR: Path = next(p for p in _here.parents if (p / "requirements.txt").exists() or (p / ".claude").is_dir())
 SETTINGS_FILE = ROOT_DIR / ".vscode" / "settings.json"
 
 # Provider override profiles. `anthropic` is intentionally absent — it means
@@ -81,8 +78,7 @@ def switch_to(provider: str) -> None:
     env = PROVIDERS[provider]
     base_url = _normalize_url(env["ANTHROPIC_BASE_URL"])
     if not base_url:
-        print(f"error: {provider} endpoint not configured "
-              f"(set its *_BASE_URL in .env)", file=sys.stderr)
+        print(f"error: {provider} endpoint not configured (set its *_BASE_URL in .env)", file=sys.stderr)
         sys.exit(1)
     settings = {
         "claudeCode.environmentVariables": [

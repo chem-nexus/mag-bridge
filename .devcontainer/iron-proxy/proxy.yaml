@@ -13,7 +13,9 @@ proxy:
   tunnel_listen: ":8080" # target of HTTPS_PROXY/HTTP_PROXY
   http_listen: ":8081"
   https_listen: ":8082"
-  max_request_body_bytes: 1048576
+  max_request_body_bytes: 4194304 # 4
+  # max_request_body_bytes: 8388608 # 8
+  # max_request_body_bytes: 16777216 # 16mb
 
 dns:
   # Required by config.Validate() even in tunnel mode; must be valid IPv4.

@@ -13,13 +13,27 @@ const util = require("util");
 const execFile = util.promisify(cp.execFile);
 
 const PROVIDERS = [
-  { label: "$(home) Local", detail: "Self-hosted LLM — LOCAL_BASE_URL", value: "local" },
-  { label: "$(sparkle) Gemini", detail: "Gemini - GEMINI_BASE_URL", value: "gemini" },
-  { label: "$(cloud) Anthropic", detail: "Claude Code — subscription", value: "anthropic" },
+  {
+    label: "$(home) Local",
+    detail: "Self-hosted LLM — LOCAL_BASE_URL",
+    value: "local",
+  },
+  {
+    label: "$(sparkle) Gemini",
+    detail: "Gemini - GEMINI_BASE_URL",
+    value: "gemini",
+  },
+  {
+    label: "$(cloud) Anthropic",
+    detail: "Claude Code — subscription",
+    value: "anthropic",
+  },
 ];
 
 function scriptPath() {
-  const root = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || "/workspaces/mag-bridge";
+  const root =
+    vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ||
+    "/workspaces/mag-bridge";
   return path.join(root, ".devcontainer", "scripts", "ai-switch.py");
 }
 
@@ -27,7 +41,9 @@ async function applyAndReload(provider) {
   try {
     await execFile("python3", [scriptPath(), provider]);
   } catch (err) {
-    vscode.window.showErrorMessage(`AI Switch (${provider}) failed: ${err.message}`);
+    vscode.window.showErrorMessage(
+      `AI Switch (${provider}) failed: ${err.message}`,
+    );
     return;
   }
   await vscode.commands.executeCommand("workbench.action.reloadWindow");

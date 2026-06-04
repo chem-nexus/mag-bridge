@@ -167,6 +167,7 @@ _PHOENIX_CLI="$(git rev-parse --show-toplevel 2>/dev/null || echo /workspaces/ma
 alias phoenix-server='python3 "$_PHOENIX_CLI"'
 
 alias iron-proxy-start='.devcontainer/iron-proxy/start.sh'
+alias observability-start='.devcontainer/services/start.sh'
 
 # Silently activate venv
 if [ -f "${PWD}/.venv/bin/activate" ];then

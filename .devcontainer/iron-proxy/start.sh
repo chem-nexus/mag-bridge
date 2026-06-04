@@ -4,7 +4,7 @@ set -euo pipefail
 BIN=/usr/local/bin/iron-proxy
 CFG="${IRON_PROXY_CONFIG:-${PROJECT_DIR}/.devcontainer/iron-proxy/proxy.yaml}"
 
-if [ ! -d "/workspaces/mag-bridge" ] && [ "$CFG" = "/workspaces/mag-bridge/.devcontainer/iron-proxy/proxy.yaml" ]; then
+if [ ! -d ""${PROJECT_DIR}"" ] && [ "$CFG" = ""${PROJECT_DIR}"/.devcontainer/iron-proxy/proxy.yaml" ]; then
   CFG=".devcontainer/iron-proxy/proxy.yaml"
 fi
 
@@ -12,7 +12,7 @@ if ! command -v "$BIN" >/dev/null 2>&1; then
   echo "[iron-proxy] binary missing — rebuild the container (iron-proxy build stage in Dockerfile)"
   exit 1
 fi
-if nc -z 127.0.0.1 8080 2>/dev/null; then
+if nc -z 0.0.0.0 8080 2>/dev/null; then
   echo "[iron-proxy] already listening on :8080 — nothing to do"
   exit 0
 fi
@@ -24,7 +24,7 @@ PID=$!
 SUCCESS=0
 for i in {1..10}; do
   sleep 0.5
-  if nc -z 127.0.0.1 8080 2>/dev/null; then
+  if nc -z 0.0.0.0 8080 2>/dev/null; then
     SUCCESS=1
     break
   fi

@@ -12,6 +12,12 @@ echo '==> [Lifecycle: onCreateCommand] Starting Dev Container On-Create Setup...
 echo "[onCreateCommand]:: Starting Iron Proxy..."
 bash .devcontainer/iron-proxy/start.sh && echo "[onCreateCommand]:: Iron Proxy started successfully." || echo "[onCreateCommand]:: Failed to start Iron Proxy. Check logs for details."
 
+# ------------------------------------------------------
+# START OBSERVABILITY SERVICES (Loki + Grafana)
+# ------------------------------------------------------
+echo "[onCreateCommand]:: Starting observability services..."
+bash .devcontainer/services/start.sh && echo "[onCreateCommand]:: Observability services started." || echo "[onCreateCommand]:: Failed to start observability services. Check /tmp/loki.log and /tmp/grafana.log."
+
 echo "[onCreateCommand]:: Exit"
 
 

@@ -39,6 +39,8 @@ ARG INSTALL_CBM=1
 ARG INSTALL_CHROMIUM=1
 ARG INSTALL_GO=1
 ARG INSTALL_IRON_PROXY=1
+ARG INSTALL_LOKI=1
+ARG INSTALL_GRAFANA=1
 
 # codebase-memory-mcp v0.6.1 — built from source with UI assets embedded
 # UI variant requires Node.js (for graph-ui frontend build) + zlib (C linker).
@@ -121,6 +123,29 @@ RUN if [ "$INSTALL_IRON_PROXY" = "1" ]; then \
     && chmod 644 /etc/iron-proxy/ca.crt && chmod 600 /etc/iron-proxy/ca.key \
     && chown -R ${USERNAME}:${USER_GID} /etc/iron-proxy \
     && cd / && rm -rf /tmp/iron-proxy-src /root/.cache/go-build; \
+    fi
+
+# Loki — feature flag; single static binary from GitHub releases.
+ARG LOKI_VERSION=3.7.2
+RUN if [ "$INSTALL_LOKI" = "1" ]; then \
+    ARCH=$(dpkg --print-architecture) \
+    && curl -fsSL "https://github.com/grafana/loki/releases/download/v${LOKI_VERSION}/loki-linux-${ARCH}.zip" \
+        -o /tmp/loki.zip \
+    && python3 -c "import zipfile; z=zipfile.ZipFile('/tmp/loki.zip'); z.extract('loki-linux-${ARCH}', '/tmp'); z.close()" \
+    && install -m 755 "/tmp/loki-linux-${ARCH}" /usr/local/bin/loki \
+    && rm /tmp/loki.zip "/tmp/loki-linux-${ARCH}"; \
+    fi
+
+# Grafana — feature flag; tarball from dl.grafana.com CDN (no GitHub release assets).
+# +security-NN suffix is part of the version string and appears verbatim in the tarball name.
+ARG GRAFANA_VERSION=13.0.1+security-01
+RUN if [ "$INSTALL_GRAFANA" = "1" ]; then \
+    ARCH=$(dpkg --print-architecture) \
+    && curl -fsSL "https://dl.grafana.com/oss/release/grafana-${GRAFANA_VERSION}.linux-${ARCH}.tar.gz" \
+        -o /tmp/grafana.tar.gz \
+    && tar -xzf /tmp/grafana.tar.gz -C /usr/local/ \
+    && mv "/usr/local/grafana-${GRAFANA_VERSION}" /usr/local/grafana \
+    && rm /tmp/grafana.tar.gz; \
     fi
 
 USER ${USERNAME}
