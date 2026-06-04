@@ -168,6 +168,7 @@ alias phoenix-server='python3 "$_PHOENIX_CLI"'
 
 alias iron-proxy-start='.devcontainer/iron-proxy/start.sh'
 alias observability-start='.devcontainer/services/start.sh'
+alias grafana='/usr/local/grafana/bin/grafana'
 
 # Silently activate venv
 if [ -f "${PWD}/.venv/bin/activate" ];then

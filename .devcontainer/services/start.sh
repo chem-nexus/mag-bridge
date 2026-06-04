@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SERVICES_DIR="${PROJECT_DIR}/.devcontainer/services"
-
 _wait_port() {
   local name="$1" port="$2" log="$3"
   for i in {1..20}; do
@@ -44,20 +42,31 @@ elif nc -z 127.0.0.1 3000 2>/dev/null; then
   echo "[services] grafana already listening on :3000"
 else
   mkdir -p /tmp/grafana/data /tmp/grafana/logs /tmp/grafana/plugins
+  # nohup env \
+  #   -u OTEL_EXPORTER_OTLP_ENDPOINT \
+  #   -u OTEL_EXPORTER_OTLP_PROTOCOL \
+  #   GF_PATHS_HOME=/usr/local/grafana \
+  #   GF_PATHS_PROVISIONING="${SERVICES_DIR}/grafana/provisioning" \
+  #   GF_PATHS_DATA=/tmp/grafana/data \
+  #   GF_PATHS_LOGS=/tmp/grafana/logs \
+  #   GF_PATHS_PLUGINS=/tmp/grafana/plugins \
+  #   GF_SERVER_HTTP_PORT=3000 \
+  #   GF_AUTH_BASIC_ENABLED=false \
+  #   GF_AUTH_DISABLE_LOGIN_FORM=true \
+  #   GF_DASHBOARDS_NEWSFEED=false \
+  #   GF_ANALYTICS_REPORTING_ENABLED=false \
+  #   GF_ANALYTICS_CHECK_FOR_UPDATES=false \
+  #   "$GRAFANA_BIN" server --homepath=/usr/local/grafana \
+  #   >/tmp/grafana.log 2>&1 &
+  #   # optional
+  #   # GF_SECURITY_ADMIN_USER=admin \
+  #   # GF_SECURITY_ADMIN_PASSWORD=admin \
   nohup env \
     -u OTEL_EXPORTER_OTLP_ENDPOINT \
     -u OTEL_EXPORTER_OTLP_PROTOCOL \
-    GF_PATHS_HOME=/usr/local/grafana \
-    GF_PATHS_PROVISIONING="${SERVICES_DIR}/grafana/provisioning" \
-    GF_PATHS_DATA=/tmp/grafana/data \
-    GF_PATHS_LOGS=/tmp/grafana/logs \
-    GF_PATHS_PLUGINS=/tmp/grafana/plugins \
-    GF_SERVER_HTTP_PORT=3000 \
-    GF_SECURITY_ADMIN_USER=admin \
-    GF_SECURITY_ADMIN_PASSWORD=admin \
-    GF_ANALYTICS_REPORTING_ENABLED=false \
-    GF_ANALYTICS_CHECK_FOR_UPDATES=false \
-    "$GRAFANA_BIN" server --homepath=/usr/local/grafana \
+    "$GRAFANA_BIN" server \
+    --config="${SERVICES_DIR}/grafana/grafana.ini" \
+    --homepath=/usr/local/grafana \
     >/tmp/grafana.log 2>&1 &
   echo $! >/tmp/grafana.pid
   _wait_port grafana 3000 /tmp/grafana.log

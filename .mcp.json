@@ -45,6 +45,14 @@
       "type": "stdio",
       "command": "npx",
       "args": ["-y", "@sylphx/pdf-reader-mcp@2.4.3", "--no-http"]
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "timeout": 30,
+      "tools": ["*"],
+      "args": ["-y", "@playwright/mcp@v0.0.75"],
+      "disabled": false
     }
   }
 }

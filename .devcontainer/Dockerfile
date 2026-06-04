@@ -148,4 +148,7 @@ RUN if [ "$INSTALL_GRAFANA" = "1" ]; then \
     && rm /tmp/grafana.tar.gz; \
     fi
 
+ENV DEVCONTAINER_DIR="${PROJECT_DIR}/.devcontainer"
+ENV SERVICES_DIR="${DEVCONTAINER_DIR}/services"
+
 USER ${USERNAME}
