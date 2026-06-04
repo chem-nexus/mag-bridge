@@ -84,12 +84,22 @@ RUN if [ "$INSTALL_CHROMIUM" = "1" ]; then \
     apt-get clean && rm -rf /var/lib/apt/lists/*; \
     fi
 
-# GitHub CLI — version pinned. To upgrade: bump both version numbers in the URL.
+# GitHub CLI
 # Arch-agnostic: $(dpkg --print-architecture) resolves arm64/amd64 at build time.
 RUN ARCH=$(dpkg --print-architecture) \
     && curl -fsSL "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_${ARCH}.deb" \
         -o /tmp/gh.deb \
     && dpkg -i /tmp/gh.deb \
     && rm /tmp/gh.deb
+
+# Go toolchain
+ARG GO_VERSION=1.24.4
+RUN ARCH=$(dpkg --print-architecture) \
+    && curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-${ARCH}.tar.gz" \
+        -o /tmp/go.tar.gz \
+    && tar -C /usr/local -xzf /tmp/go.tar.gz \
+    && rm /tmp/go.tar.gz
+
+ENV PATH="/usr/local/go/bin:${PATH}"
 
 USER ${USERNAME}
