@@ -1,0 +1,69 @@
+# iron-proxy — egress audit/firewall for the MagBridge devcontainer (issue #9).
+# Validated against iron-proxy v0.41.0 (spike autoresearch/debug-260603-2125).
+#
+# DEFAULT = WARN MODE: observes + audits every egress, blocks NOTHING. Safe to ship —
+# a rebuild with this config cannot sever egress. To enforce default-deny + secret-swap,
+# see proxy.enforce.example.yaml and the runbook (.claude/context/iron-proxy-setup.md).
+#
+# Routing: tunnel/CONNECT (HTTPS_PROXY=http://127.0.0.1:8080). Local AI (LM Studio at
+# host.docker.internal) should bypass via NO_PROXY, not the allowlist (cross-platform:
+# the host-gateway IP differs on WSL2 vs macOS, so never hardcode its CIDR).
+
+proxy:
+  tunnel_listen: ":8080" # target of HTTPS_PROXY/HTTP_PROXY
+  http_listen: ":8081"
+  https_listen: ":8082"
+  max_request_body_bytes: 1048576
+
+dns:
+  # Required by config.Validate() even in tunnel mode; must be valid IPv4.
+  # High port (non-root cannot bind :53). Unused — routing is via the tunnel.
+  listen: ":8053"
+  proxy_ip: "127.0.0.1"
+
+tls:
+  ca_cert: "/etc/iron-proxy/ca.crt"
+  ca_key: "/etc/iron-proxy/ca.key"
+
+metrics:
+  listen: ":9090" # explicit (default is also :9090; running 2 instances collides here)
+
+transforms:
+  - name: allowlist
+    config:
+      warn: true # OBSERVE-ONLY. Set false (Phase 1) to enforce default-deny (403).
+      domains:
+        # --- Anthropic (Claude Code: model API + telemetry; OAuth passes through) ---
+        - "*.anthropic.com" # api.anthropic.com, statsig.anthropic.com
+        - "claude.ai"
+        # --- GitHub (gh CLI + github MCP + git) ---
+        - "api.github.com"
+        - "github.com"
+        - "*.githubusercontent.com" # raw / codeload / objects
+        # --- npm (npx-spawned MCP servers) ---
+        - "registry.npmjs.org"
+        # --- PyPI (pip / uv) ---
+        - "pypi.org"
+        - "files.pythonhosted.org"
+        # --- MCP backends ---
+        - "api.exa.ai"
+        - "api.tavily.com"
+        - "context7.com"
+        - "mcp.context7.com"
+        # --- Known-needed; confirm/add via a real warn-mode overnight run (issue #9 step 1) ---
+        # - "cdn.playwright.dev"
+        # - "playwright.download.prss.microsoft.com"
+        # - "huggingface.co"
+        # - "cdn-lfs.huggingface.co"
+        # - "*.sentry.io"
+
+  - name: body_capture # "insights into network traffic" — records prompts sent to the model
+    config:
+      max_request_body_bytes: 16384
+      rules:
+        - host: "*.anthropic.com"
+          methods: ["POST"]
+          paths: ["/v1/messages"]
+
+log:
+  level: "debug"

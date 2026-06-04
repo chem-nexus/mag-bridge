@@ -1,8 +1,9 @@
 {
-  "name": "Claude Isolation",
+  "name": "Agent Dev Container",
   "build": {
     "dockerfile": "Dockerfile"
   },
+  // args for docker
   "runArgs": [
     "--shm-size=1g",
     "--memory=16g",
@@ -12,8 +13,10 @@
   ],
   "mounts": [
     "source=${localWorkspaceFolderBasename}-history,target=/commandhistory,type=volume",
+    "source=${localWorkspaceFolder}/.devcontainer/dotfiles/.zshrc,target=/home/vscode_server/.zshrc,type=bind",
     "source=${localWorkspaceFolder}/.devcontainer/dotfiles/.p10k.zsh,target=/home/vscode_server/.p10k.zsh,type=bind",
-    "source=${localWorkspaceFolderBasename}-claude-config,target=/home/vscode_server/.claude,type=volume"
+    "source=${localWorkspaceFolderBasename}-p10k-theme,target=/home/vscode_server/powerlevel10k,type=volume",
+    "source=${localWorkspaceFolderBasename}-claude-config,target=/home/vscode_server/.claude,type=volume",
   ],
   "overrideCommand": true,
   "hostRequirements": {
@@ -72,52 +75,24 @@
     "LOCAL_AUTH_TOKEN": "${containerEnv:LOCAL_AUTH_TOKEN}",
     "GEMINI_BASE_URL": "${containerEnv:GEMINI_BASE_URL}",
     "GEMINI_AUTH_TOKEN": "${containerEnv:GEMINI_AUTH_TOKEN}",
+    // iron-proxy: route workload egress, reaches the agent, its MCP servers, and terminals
+    "HTTPS_PROXY": "http://127.0.0.1:8080",
+    "HTTP_PROXY": "http://127.0.0.1:8080",
+    "https_proxy": "http://127.0.0.1:8080",
+    "http_proxy": "http://127.0.0.1:8080",
+    "NO_PROXY": "localhost,127.0.0.1,host.docker.internal",
+    "no_proxy": "localhost,127.0.0.1,host.docker.internal",
+    "NODE_EXTRA_CA_CERTS": "/etc/iron-proxy/ca.crt",
+    "REQUESTS_CA_BUNDLE": "/etc/iron-proxy/ca.crt",
+    "SSL_CERT_FILE": "/etc/iron-proxy/ca.crt",
+    "GIT_SSL_CAINFO": "/etc/iron-proxy/ca.crt",
+    "DO_NOT_TRACK": "1",
+    "NODE_USE_ENV_PROXY": "1",
   },
   "customizations": {
     "vscode": {
       "settings": {
         // --- Editor & Workbench (Global UI) ---
-        "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-        "editor.detectIndentation": true,
-        "editor.insertSpaces": true,
-        "editor.largeFileOptimizations": false,
-        "editor.minimap.enabled": false,
-        "editor.tabSize": 2,
-        "editor.unicodeHighlight.ambiguousCharacters": false,
-        "explorer.confirmDelete": false,
-        "explorer.confirmDragAndDrop": false,
-        "launch": {
-          "justMyCode": false
-        },
-        "workbench.colorCustomizations": {},
-        "workbench.secondarySideBar.defaultVisibility": "hidden",
-        "workbench.startupEditor": "none",
-        // Reduce dev-container reconnect storms (see .devcontainer/vscode-report-2026-06-03.html)
-        "dev.containers.connectionTimeout": 120,
-        // --- Terminal & Shell ---
-        "remote.autoForwardPorts": true,
-        "terminal.integrated.enableMultiLinePasteWarning": "never",
-        "terminal.integrated.env.osx": {
-          "PYTHONPATH": "${workspaceFolder}"
-        },
-        "terminal.integrated.environmentChangesRelaunch": true,
-        "terminal.integrated.fontFamily": "'MesloLGS NF'",
-        // --- Files & Git ---
-        "files.associations": {
-          "*.sh": "shellscript"
-        },
-        "github.copilot.enable": {
-          "*": true,
-          "dotenv": false
-        },
-        "files.autoSave": "onFocusChange",
-        "files.exclude": {},
-        "files.watcherExclude": {},
-        "git.defaultBranchName": "master",
-        "git.openRepositoryInParentFolders": "never",
-        "gitlens.graph.layout": "editor",
-        // --- AI (Claude & Chat) ---
-        "chat.useClaudeHooks": true,
         "claudeCode.environmentVariables": [
           {
             "name": "PYTHONPATH",
@@ -172,6 +147,59 @@
             "value": "service.name=mag-bridge-claude,deployment.environment=devcontainer"
           }
         ],
+        "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+        // telemetry start
+        "gitlens.telemetry.enabled": false,
+        "gitlens.remotes.dataPrivacy": true,
+        "telemetry.enableTelemetry": false,
+        "telemetry.telemetryLevel": "off",
+        "gitlens.advanced.telemetry.enabled": false,
+        "dev.containers.telemetryLevel": "off",
+        "github.copilot.advanced": {
+          "telemetry.enabled": false
+        },
+        "workbench.enableExperiments": false,
+        // telemetry end
+        "editor.detectIndentation": true,
+        "editor.insertSpaces": true,
+        "editor.largeFileOptimizations": false,
+        "editor.minimap.enabled": false,
+        "editor.tabSize": 2,
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "explorer.confirmDelete": false,
+        "explorer.confirmDragAndDrop": false,
+        "launch": {
+          "justMyCode": false
+        },
+        "workbench.colorCustomizations": {},
+        "workbench.secondarySideBar.defaultVisibility": "hidden",
+        "workbench.startupEditor": "none",
+        // Reduce dev-container reconnect storms (see .devcontainer/vscode-report-2026-06-03.html)
+        "dev.containers.connectionTimeout": 120,
+        // --- Terminal & Shell ---
+        "remote.autoForwardPorts": true,
+        "terminal.integrated.enableMultiLinePasteWarning": "never",
+        "terminal.integrated.env.osx": {
+          "PYTHONPATH": "${workspaceFolder}"
+        },
+        "terminal.integrated.environmentChangesRelaunch": true,
+        "terminal.integrated.fontFamily": "'MesloLGS NF'",
+        // --- Files & Git ---
+        "files.associations": {
+          "*.sh": "shellscript"
+        },
+        "github.copilot.enable": {
+          "*": true,
+          "dotenv": false
+        },
+        "files.autoSave": "onFocusChange",
+        "files.exclude": {},
+        "files.watcherExclude": {},
+        "git.defaultBranchName": "master",
+        "git.openRepositoryInParentFolders": "never",
+        "gitlens.graph.layout": "editor",
+        // --- AI (Claude & Chat) ---
+        "chat.useClaudeHooks": true,
         "claudeCode.preferredLocation": "sidebar",
         "claudeCode.selectedModel": "default",
         "claudeCode.initialPermissionMode": "acceptEdits",
@@ -280,7 +308,7 @@
     }
   },
   "updateContentCommand": "bash .devcontainer/updateContentCommand.sh",
-  "onCreateCommand": "echo '==> [Lifecycle: onCreateCommand] Base OS built. Workspace not mounted yet.'",
+  "onCreateCommand": "bash .devcontainer/onCreateCommand.sh",
   "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
   "postStartCommand": "echo '==> [Lifecycle: postStartCommand] Container awake.'",
   "postAttachCommand": "bash .devcontainer/postAttachCommand.sh"

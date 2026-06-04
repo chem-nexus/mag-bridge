@@ -1,40 +1,35 @@
 #!/bin/bash
 set -euo pipefail
 
-USERNAME='vscode_server'
-echo "[postCreateCommand]:: Starting Dev Container Post-Create Setup..."
+echo '==> [Lifecycle: postCreateCommand] Starting Dev Container Post-Create Setup...'
 
 # ------------------------------------------------------
-# 3. SHELL CUSTOMIZATION AND PERSISTENCE
 # ------------------------------------------------------
 
-# User-Space Runtime Dependencies (Powerlevel10k)
 echo "[postCreateCommand]:: Installing Powerlevel10k theme..."
 P10K_DIR="${HOME}/powerlevel10k"
-P10K_VERSION="v1.20.0"
-if [ ! -d "${P10K_DIR}" ]; then
-	git clone --depth=1 --branch "${P10K_VERSION}" https://github.com/romkatv/powerlevel10k.git "${P10K_DIR}"
-fi
+P10K_VERSION="35833ea15f14b71dbcebc7e54c104d8d56ca5268"
 
-# Persistent Command History Configuration
-echo "[postCreateCommand]:: Configuring persistent Zsh history..."
-sudo chown -R ${USERNAME} /commandhistory
-if ! grep -q "SAVEHIST" "${HOME}/.zshrc"; then
-	echo "export HISTFILE=/commandhistory/.zsh_history" >>"${HOME}/.zshrc"
-	echo "export HISTSIZE=10000" >>"${HOME}/.zshrc"
-	echo "export SAVEHIST=10000" >>"${HOME}/.zshrc"
-	echo "setopt appendhistory" >>"${HOME}/.zshrc"
-fi
-
-# Shell Alias Injection (Bash and Zsh)
-if [[ -f ".devcontainer/dotfiles/.shell_utils" ]]; then
-	grep -q "alias uvpipr" "${HOME}/.bashrc" || cat ".devcontainer/dotfiles/.shell_utils" >>"${HOME}/.bashrc"
-	grep -q "alias uvpipr" "${HOME}/.zshrc" || cat ".devcontainer/dotfiles/.shell_utils" >>"${HOME}/.zshrc"
-	echo "[postCreateCommand]:: Aliases verified/injected successfully."
+if [ ! -d "${P10K_DIR}" ] || [ -z "$(ls -A "${P10K_DIR}")" ]; then
+    mkdir -p "${P10K_DIR}" && cd "${P10K_DIR}" && sudo chown -R ${USER_UID}:${USER_GID} "${P10K_DIR}"
+    
+    GIT_LOG=$(git init -q && git remote add origin https://github.com/romkatv/powerlevel10k.git && git fetch -q --depth 1 origin "${P10K_VERSION}" && git reset -q --hard FETCH_HEAD 2>&1)
+    
+    if [ $? -eq 0 ]; then
+        rm -rf .git
+        echo "[postCreateCommand]:: Powerlevel10k theme successfully installed to ${P10K_DIR}"
+    else
+        rm -rf .git
+        echo "[postCreateCommand]:: Error: Powerlevel10k theme installation failed at ${P10K_DIR}"
+        echo "[postCreateCommand]:: Git error details: ${GIT_LOG}"
+    fi
+    cd - > /dev/null
+else
+    echo "[postCreateCommand]:: Directory ${P10K_DIR} already exists and is not empty. Skipping installation."
 fi
 
 # ------------------------------------------------------
-# 4. CLAUDE CODE PLUGIN (magbridge-ai)
+# 2. CLAUDE CODE PLUGIN (magbridge-ai)
 # ------------------------------------------------------
 echo "[postCreateCommand]:: Setting up magbridge-ai Claude plugin..."
 PLUGIN_REMOTE="https://github.com/mag-bros/magbridge-ai"
@@ -53,7 +48,7 @@ PLUGIN_SHA=$(git -C "${PLUGIN_PATH}" rev-parse --short HEAD 2>/dev/null || echo 
 echo "[postCreateCommand]:: magbridge-ai ready @ ${PLUGIN_SHA}."
 
 # ------------------------------------------------------
-# 5. GITHUB CLI AUTH
+# 3. GITHUB CLI AUTH
 # ------------------------------------------------------
 echo "[postCreateCommand]:: Checking GitHub CLI auth..."
 gh auth status 2>/dev/null \

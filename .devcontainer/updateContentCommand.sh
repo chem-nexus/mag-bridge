@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "[updateContentCommand]:: Starting Background Dependency Installation..."
+echo '==> [Lifecycle: updateContentCommand] Ensuring Developer Dependencies...'
 
 # ------------------------------------------------------
 # 1. ENVIRONMENT INFRASTRUCTURE SETUP
@@ -48,7 +48,7 @@ uv pip install -r requirements.txt -r requirements-ci.txt -r requirements-dev.tx
 # mount); `playwright install` is idempotent and re-downloads only when the pinned version bumps.
 if .venv/bin/python -c "import playwright" 2>/dev/null; then
     echo "[updateContentCommand]:: Installing Playwright Chromium browser..."
-    .venv/bin/playwright install chromium
+    .venv/bin/playwright install chromium && echo "[updateContentCommand]:: Playwright Chromium browser installation complete."
 else
     echo "[updateContentCommand]:: Playwright not installed, skipping browser download."
 fi

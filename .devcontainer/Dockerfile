@@ -1,8 +1,8 @@
 FROM docker.io/library/python:3.12-slim-bookworm
 
-ARG USERNAME=vscode_server
-ARG USER_UID=6666
-ARG USER_GID=6666
+ENV USERNAME=vscode_server
+ENV USER_UID=6666
+ENV USER_GID=6666
 
 USER root
 
@@ -37,6 +37,8 @@ RUN pip install --no-cache-dir uv
 # --- Feature flags (1=install, 0=skip) ---
 ARG INSTALL_CBM=1
 ARG INSTALL_CHROMIUM=1
+ARG INSTALL_GO=1
+ARG INSTALL_IRON_PROXY=1
 
 # codebase-memory-mcp v0.6.1 — built from source with UI assets embedded
 # UI variant requires Node.js (for graph-ui frontend build) + zlib (C linker).
@@ -92,14 +94,33 @@ RUN ARCH=$(dpkg --print-architecture) \
     && dpkg -i /tmp/gh.deb \
     && rm /tmp/gh.deb
 
-# Go toolchain
+# Go toolchain (feature flag)
 ARG GO_VERSION=1.24.4
-RUN ARCH=$(dpkg --print-architecture) \
-    && curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-${ARCH}.tar.gz" \
-        -o /tmp/go.tar.gz \
+RUN if [ "$INSTALL_GO" = "1" ]; then \
+    ARCH=$(dpkg --print-architecture) \
+    && curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-${ARCH}.tar.gz" -o /tmp/go.tar.gz \
     && tar -C /usr/local -xzf /tmp/go.tar.gz \
-    && rm /tmp/go.tar.gz
+    && rm /tmp/go.tar.gz; \
+    fi
 
 ENV PATH="/usr/local/go/bin:${PATH}"
+
+# iron-proxy (issue #9) — feature flag; requires INSTALL_GO=1. Build from source, pinned tag.
+# v0.41.0 = latest STABLE (validated; spike autoresearch/debug-260603-2125). Latest tag incl.
+# prereleases is v0.42.0-rc.7 — bump IRON_PROXY_REF. Arch-native build (macOS-arm64 + WSL2-amd64).
+# INERT: binary + CA installed, proxy NOT started, no proxy-env set => a rebuild does not change
+# egress. Wiring it on is the human Phase-1 step (.claude/context/iron-proxy-setup.md).
+ARG IRON_PROXY_REF=v0.41.0
+RUN if [ "$INSTALL_IRON_PROXY" = "1" ]; then \
+    git clone --depth 1 --branch "${IRON_PROXY_REF}" https://github.com/ironsh/iron-proxy.git /tmp/iron-proxy-src \
+    && cd /tmp/iron-proxy-src \
+    && CGO_ENABLED=0 go build -trimpath \
+        -ldflags "-s -w -X github.com/ironsh/iron-proxy/internal/version.Version=${IRON_PROXY_REF}" \
+        -o /usr/local/bin/iron-proxy ./cmd/iron-proxy \
+    && /usr/local/bin/iron-proxy generate-ca -outdir /etc/iron-proxy \
+    && chmod 644 /etc/iron-proxy/ca.crt && chmod 600 /etc/iron-proxy/ca.key \
+    && chown -R ${USERNAME}:${USER_GID} /etc/iron-proxy \
+    && cd / && rm -rf /tmp/iron-proxy-src /root/.cache/go-build; \
+    fi
 
 USER ${USERNAME}
