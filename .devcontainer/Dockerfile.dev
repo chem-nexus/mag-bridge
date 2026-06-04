@@ -1,0 +1,149 @@
+FROM docker.io/library/python:3.12-slim-bookworm
+
+ENV USERNAME=vscode_server
+ENV USER_UID=6666
+ENV USER_GID=6666
+ENV DEVCONTAINER_DIR="${PROJECT_DIR}/.devcontainer"
+ENV SERVICES_DIR="${DEVCONTAINER_DIR}/services"
+ENV CLAUDE_DIR="${PROJECT_DIR}/.claude"
+
+USER root
+
+# Setup User and Permissions
+RUN groupadd --gid ${USER_GID} ${USERNAME} \
+    && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME}
+
+# 1. Install OS Dependencies (Moved to absolute top; added ca-certificates/tar for secure fetching)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    vim \
+    curl \
+    git \
+    ca-certificates \
+    tar \
+    libxrender1 \
+    libxext6 \
+    libsm6 \
+    libice6 \
+    pulseaudio-utils \
+    libfontconfig1 \
+    iputils-ping \
+    netcat-openbsd && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# --- Feature flags (1=install, 0=skip) ---
+ENV INSTALL_GO=1
+ENV INSTALL_IRON_PROXY=1
+ENV INSTALL_CBM=1
+ENV INSTALL_CHROMIUM=1
+ENV INSTALL_LOKI=1
+ENV INSTALL_GRAFANA=1
+
+# 2. Go toolchain (Dependency for Iron Proxy)
+ARG GO_VERSION=1.24.4
+RUN if [ "$INSTALL_GO" = "1" ]; then \
+    ARCH=$(dpkg --print-architecture) \
+    && curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-${ARCH}.tar.gz" -o /tmp/go.tar.gz \
+    && tar -C /usr/local -xzf /tmp/go.tar.gz \
+    && rm /tmp/go.tar.gz; \
+    fi
+
+ENV PATH="/usr/local/go/bin:${PATH}"
+
+# 3. iron-proxy (Built from source, placed before all other application packages)
+ARG IRON_PROXY_REF=v0.41.0
+RUN if [ "$INSTALL_IRON_PROXY" = "1" ]; then \
+    git clone --depth 1 --branch "${IRON_PROXY_REF}" https://github.com/ironsh/iron-proxy.git /tmp/iron-proxy-src \
+    && cd /tmp/iron-proxy-src \
+    && CGO_ENABLED=0 go build -trimpath \
+        -ldflags "-s -w -X github.com/ironsh/iron-proxy/internal/version.Version=${IRON_PROXY_REF}" \
+        -o /usr/local/bin/iron-proxy ./cmd/iron-proxy \
+    && /usr/local/bin/iron-proxy generate-ca -outdir /etc/iron-proxy \
+    && chmod 644 /etc/iron-proxy/ca.crt && chmod 600 /etc/iron-proxy/ca.key \
+    && chown -R ${USERNAME}:${USER_GID} /etc/iron-proxy \
+    && cd / && rm -rf /tmp/iron-proxy-src /root/.cache/go-build; \
+    fi
+
+# ---------------------------------------------------------
+# Application Tooling and Libraries
+# ---------------------------------------------------------
+
+ENV PROJECT_DIR=/workspaces/mag-bridge
+
+# Claude persistent isolated auth
+RUN mkdir -p /commandhistory /home/${USERNAME}/.claude \
+    && chown -R ${USERNAME}:${USER_GID} /commandhistory /home/${USERNAME}/.claude
+
+RUN pip install --no-cache-dir uv
+
+# codebase-memory-mcp v0.6.1
+RUN if [ "$INSTALL_CBM" = "1" ]; then \
+    apt-get update && \
+    apt-get install -y --no-install-recommends zlib1g-dev && \
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
+    git clone --depth=1 --branch v0.6.1 \
+        https://github.com/DeusData/codebase-memory-mcp.git /tmp/cbm-src && \
+    cd /tmp/cbm-src && bash scripts/build.sh --with-ui && \
+    install -m 755 build/c/codebase-memory-mcp /usr/local/bin/codebase-memory-mcp && \
+    cd / && rm -rf /tmp/cbm-src && \
+    apt-get remove -y nodejs npm && apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/* /root/.npm; \
+    fi
+
+# Playwright Chromium OS dependencies
+RUN if [ "$INSTALL_CHROMIUM" = "1" ]; then \
+    apt-get update && apt-get install -y --no-install-recommends \
+        libasound2 \
+        libatk-bridge2.0-0 \
+        libatk1.0-0 \
+        libatspi2.0-0 \
+        libcairo2 \
+        libcups2 \
+        libdbus-1-3 \
+        libdrm2 \
+        libgbm1 \
+        libglib2.0-0 \
+        libnspr4 \
+        libnss3 \
+        libpango-1.0-0 \
+        libx11-6 \
+        libxcb1 \
+        libxcomposite1 \
+        libxdamage1 \
+        libxfixes3 \
+        libxkbcommon0 \
+        libxrandr2 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*; \
+    fi
+
+# GitHub CLI
+RUN ARCH=$(dpkg --print-architecture) \
+    && curl -fsSL "https://github.com/cli/cli/releases/download/v2.92.0/gh_2.92.0_linux_${ARCH}.deb" \
+        -o /tmp/gh.deb \
+    && dpkg -i /tmp/gh.deb \
+    && rm /tmp/gh.deb
+
+# Loki
+ARG LOKI_VERSION=3.7.2
+RUN if [ "$INSTALL_LOKI" = "1" ]; then \
+    ARCH=$(dpkg --print-architecture) \
+    && curl -fsSL "https://github.com/grafana/loki/releases/download/v${LOKI_VERSION}/loki-linux-${ARCH}.zip" \
+        -o /tmp/loki.zip \
+    && python3 -c "import zipfile; z=zipfile.ZipFile('/tmp/loki.zip'); z.extract('loki-linux-${ARCH}', '/tmp'); z.close()" \
+    && install -m 755 "/tmp/loki-linux-${ARCH}" /usr/local/bin/loki \
+    && rm /tmp/loki.zip "/tmp/loki-linux-${ARCH}"; \
+    fi
+
+# Grafana
+ARG GRAFANA_VERSION=13.0.1+security-01
+RUN if [ "$INSTALL_GRAFANA" = "1" ]; then \
+    ARCH=$(dpkg --print-architecture) \
+    && curl -fsSL "https://dl.grafana.com/oss/release/grafana-${GRAFANA_VERSION}.linux-${ARCH}.tar.gz" \
+        -o /tmp/grafana.tar.gz \
+    && tar -xzf /tmp/grafana.tar.gz -C /usr/local/ \
+    && mv "/usr/local/grafana-${GRAFANA_VERSION}" /usr/local/grafana \
+    && rm /tmp/grafana.tar.gz; \
+    fi
+
+USER ${USERNAME}
