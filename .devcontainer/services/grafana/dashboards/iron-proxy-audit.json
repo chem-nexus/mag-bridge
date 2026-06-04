@@ -354,7 +354,7 @@
       "type": "logs"
     }
   ],
-  "refresh": "30s",
+  "refresh": "5s",
   "schemaVersion": 42,
   "tags": ["iron-proxy", "egress", "devcontainer"],
   "templating": {
@@ -446,7 +446,7 @@
       }
     ]
   },
-  "time": { "from": "now-1h", "to": "now" },
+  "time": { "from": "now-5m", "to": "now" },
   "timepicker": {},
   "timezone": "browser",
   "title": "Iron Proxy — Egress Audit",

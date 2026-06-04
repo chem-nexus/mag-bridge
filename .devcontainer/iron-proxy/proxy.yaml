@@ -10,11 +10,11 @@
 # the host-gateway IP differs on WSL2 vs macOS, so never hardcode its CIDR).
 
 proxy:
-  tunnel_listen: ":8080" # target of HTTPS_PROXY/HTTP_PROXY
-  http_listen: ":8081"
+  tunnel_listen: ":8080" # target of HTTPS_PROXY (CONNECT/SOCKS5 only)
+  http_listen: ":8081" # target of HTTP_PROXY (plain-HTTP forward proxy)
   https_listen: ":8082"
-  max_request_body_bytes: 4194304 # 4
-  # max_request_body_bytes: 8388608 # 8
+  max_request_body_bytes: 4194304 # 4mb
+  # max_request_body_bytes: 8388608 # 8mb
   # max_request_body_bytes: 16777216 # 16mb
 
 dns:

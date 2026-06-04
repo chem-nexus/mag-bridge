@@ -24,6 +24,7 @@ import json
 import os
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 _here = Path(__file__).resolve()
 ROOT_DIR: Path = next(p for p in _here.parents if (p / "requirements.txt").exists() or (p / ".claude").is_dir())

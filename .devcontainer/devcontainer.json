@@ -22,7 +22,17 @@
   "hostRequirements": {
     "memory": "6gb"
   },
-  "forwardPorts": [4200, 6006, 8000, 9749, 15500, 8080, 3000, 9090, 9092],
+  "forwardPorts": [
+    4200,
+    6006,
+    8000,
+    9749,
+    15500,
+    8080,
+    3000,
+    9090,
+    9092
+  ],
   "portsAttributes": {
     "4200": {
       "label": "Angular Frontend",
@@ -86,10 +96,11 @@
     "GEMINI_BASE_URL": "${containerEnv:GEMINI_BASE_URL}",
     "GEMINI_AUTH_TOKEN": "${containerEnv:GEMINI_AUTH_TOKEN}",
     // iron-proxy: route workload egress, reaches the agent, its MCP servers, and terminals
+    // :8080 = tunnel_listen (CONNECT/SOCKS5, HTTPS only); :8081 = http_listen (plain-HTTP forward proxy)
     "HTTPS_PROXY": "http://127.0.0.1:8080",
-    "HTTP_PROXY": "http://127.0.0.1:8080",
+    "HTTP_PROXY": "http://127.0.0.1:8081",
     "https_proxy": "http://127.0.0.1:8080",
-    "http_proxy": "http://127.0.0.1:8080",
+    "http_proxy": "http://127.0.0.1:8081",
     "NO_PROXY": "localhost,127.0.0.1,host.docker.internal",
     "no_proxy": "localhost,127.0.0.1,host.docker.internal",
     "NODE_EXTRA_CA_CERTS": "/etc/iron-proxy/ca.crt",
@@ -152,7 +163,7 @@
             "value": "grpc"
           },
           {
-            "name": "OTEL_EXPORTER_OTLP_ENDPOINT",
+            "name": "",
             "value": "http://localhost:4317"
           },
           {
@@ -225,7 +236,10 @@
         "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
         "python.languageServer": "Pylance",
         "python.terminal.useEnvFile": true,
-        "python.testing.pytestArgs": ["tests", ".devcontainer/tests"],
+        "python.testing.pytestArgs": [
+          "tests",
+          ".devcontainer/tests"
+        ],
         "python.testing.pytestEnabled": true,
         "python.testing.unittestEnabled": false,
         "python.terminal.activateEnvironment": false,
