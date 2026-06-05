@@ -51,7 +51,7 @@
       "command": "npx",
       "timeout": 30,
       "tools": ["*"],
-      "args": ["-y", "@playwright/mcp@v0.0.75"],
+      "args": ["-y", "@playwright/mcp@v0.0.75", "--browser", "chromium"],
       "disabled": false
     }
   }
