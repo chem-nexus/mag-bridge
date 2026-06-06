@@ -1,15 +1,6 @@
 # Local binaries (Grype, etc.)
 bin/
 
-# Security scan reports
-security/
-
-# Local binaries (Grype, etc.)
-bin/
-
-# Security scan reports
-security/
-
 # Byte-compiled / optimized / DLL files
 bondtype_coverage.json
 __pycache__/
@@ -157,6 +148,8 @@ celerybeat.pid
 
 # Environments
 .env
+*.env
+.env.*
 .envrc
 .venv
 env/
@@ -206,7 +199,7 @@ cython_debug/
 # Include core workspace files for consistent behavior across developers.
 !.vscode/
 .vscode/*
-!.vscode/settings.json
+.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/tasks.json
 !.vscode/tasks.json
@@ -242,13 +235,16 @@ mcp/.module_index.json
 rdkit/
 
 # Local MCP repos and indexes
-.local-mcp/
 !.local-mcp/manifest.json
 
 # [mcpmenago] automatically generated content — do not edit
 .claude/settings.local.json
 .local-mcp/
+.mcp.idx
 external_repos/
 node_modules/
 tests/reports/
 .claude/
+.vscode/settings.json
+# autoresearch run artifacts (loop output at project root)
+/autoresearch/
