@@ -3151,16 +3151,22 @@ CALC_DIAMAG_QUALITY_TESTS: list["DataQualityDiamagContrTestsSDF"] = [
         measured_diamag_sus=-76.8,
         literature_reference="[2] 3-579",
     ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
-    # DataQualityDiamagContrTestsSDF(
-    #     sdf_file="",
-    #     measured_diamag_sus=,
-    #     literature_reference="",
-    # ),
+    # Bromine compounds
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="BrF3.sdf",
+        measured_diamag_sus=-33.9,
+        literature_reference="No. 329",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="BrF5.sdf",
+        measured_diamag_sus=-45.1,
+        literature_reference="No. 329",
+    ),
+    DataQualityDiamagContrTestsSDF(
+        sdf_file="BrO3-.sdf",
+        measured_diamag_sus=0,
+        literature_reference="",
+    ),
     # DataQualityDiamagContrTestsSDF(
     #     sdf_file="",
     #     measured_diamag_sus=,
