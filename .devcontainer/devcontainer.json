@@ -216,7 +216,7 @@
         "chat.useClaudeHooks": true,
         "claudeCode.preferredLocation": "sidebar",
         "claudeCode.selectedModel": "default",
-        "claudeCode.initialPermissionMode": "acceptEdits",
+        "claudeCode.initialPermissionMode": "default",
         // --- Python, Jupyter & Testing ---
         "jupyter.askForKernelRestart": false,
         "jupyter.notebookFileRoot": "${workspaceFolder}",
