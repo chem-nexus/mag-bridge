@@ -75,7 +75,7 @@
   },
   "remoteUser": "vscode_server",
   "remoteEnv": {
-    "PATH": "${containerWorkspaceFolder}/.devcontainer/node_modules/.bin:${containerWorkspaceFolder}/.venv/bin:${containerEnv:PATH}",
+    "PATH": "${containerWorkspaceFolder}/node_modules/.bin:${containerWorkspaceFolder}/.venv/bin:${containerEnv:PATH}",
     "CBM_CACHE_DIR": "/home/vscode_server/.claude/.cbm-cache",
     "UV_LINK_MODE": "copy",
     "HISTFILE": "/commandhistory/.zsh_history",

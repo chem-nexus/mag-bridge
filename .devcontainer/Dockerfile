@@ -3,6 +3,9 @@ FROM docker.io/library/python:3.12-slim-bookworm
 ENV USERNAME=vscode_server
 ENV USER_UID=6666
 ENV USER_GID=6666
+ENV DEVCONTAINER_DIR="${PROJECT_DIR}/.devcontainer"
+ENV SERVICES_DIR="${DEVCONTAINER_DIR}/services"
+ENV CLAUDE_DIR="${PROJECT_DIR}/.claude"
 
 USER root
 

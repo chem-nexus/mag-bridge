@@ -5,10 +5,11 @@ from rdkit.Chem import (
     AddHs,
     Mol,
     MolFromSmiles,
+    SanitizeFlags,
+    SanitizeMol,
     SDMolSupplier,
 )
 from rdkit.Chem import rdMolDescriptors as rdmd
-from rdkit.Chem import SanitizeFlags, SanitizeMol
 
 from src import SDF_DIR
 from src.core.compound import MBCompound

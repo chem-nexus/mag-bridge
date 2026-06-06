@@ -15,8 +15,8 @@ prof/
 
 # Electron node modules
 frontend/node_modules
-node_modules/
-node_modules/
+# bare entry (no trailing slash) catches both real node_modules dirs and the workspace-root symlink
+node_modules
 
 # Distribution / packaging
 .Python
