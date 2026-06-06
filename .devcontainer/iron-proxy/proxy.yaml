@@ -13,6 +13,7 @@ proxy:
   tunnel_listen: ":8080" # target of HTTPS_PROXY (CONNECT/SOCKS5 only)
   http_listen: ":8081" # target of HTTP_PROXY (plain-HTTP forward proxy)
   https_listen: ":8082"
+  upstream_response_header_timeout: 5m
   max_request_body_bytes: 4194304 # 4mb
   # max_request_body_bytes: 8388608 # 8mb
   # max_request_body_bytes: 16777216 # 16mb

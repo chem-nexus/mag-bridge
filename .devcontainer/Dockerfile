@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libsm6 \
     libice6 \
     pulseaudio-utils \
+    ffmpeg \
     libfontconfig1 \
     iputils-ping \
     netcat-openbsd && \
@@ -75,7 +76,7 @@ RUN if [ "$INSTALL_CHROMIUM" = "1" ]; then \
         libdrm2 \
         libgbm1 \
         libglib2.0-0 \
-        libnspr4 \
+        libnspr4 \ 
         libnss3 \
         libpango-1.0-0 \
         libx11-6 \

@@ -235,12 +235,12 @@ mcp/.module_index.json
 rdkit/
 
 # Local MCP repos and indexes
-.local-mcp/
 !.local-mcp/manifest.json
 
 # [mcpmenago] automatically generated content — do not edit
 .claude/settings.local.json
 .local-mcp/
+.mcp.idx
 external_repos/
 node_modules/
 tests/reports/
