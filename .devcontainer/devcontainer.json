@@ -57,6 +57,10 @@
     "15500": {
       "label": "Promptfoo UI",
       "onAutoForward": "silent"
+    },
+    "15500": {
+      "label": "Promptfoo UI",
+      "onAutoForward": "silent"
     }
   },
   // Extensions install for the attached workspace; settings + the credential-sandbox come from the image.
