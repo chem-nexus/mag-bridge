@@ -1,6 +1,7 @@
 // ============================================================================
 // FRONTEND PRELOAD (Electron Renderer Bridge)
 // Provides:
+//   - appConfig runtime injection for renderer
 //   - apiRequest IPC bridge
 //   - stdout logger (explicit logging to main)
 //   - console forwarding (renderer console -> main)
@@ -10,7 +11,31 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 // ============================================================================
-// 1. IPC Wrapper: Safe API Request
+// 1. Runtime App Config Injection
+// Reads --app-config=<json> from renderer process argv and exposes it as
+// window.appConfig for frontend runtime configuration.
+// ============================================================================
+
+function parseAppConfigArg() {
+  const rawArg = process.argv.find((arg) => arg.startsWith('--app-config='));
+  if (!rawArg) return null;
+
+  try {
+    const encoded = rawArg.slice('--app-config='.length);
+    return JSON.parse(decodeURIComponent(encoded));
+  } catch {
+    return null;
+  }
+}
+
+const appConfig = parseAppConfigArg();
+
+if (appConfig) {
+  contextBridge.exposeInMainWorld('appConfig', appConfig);
+}
+
+// ============================================================================
+// 2. IPC Wrapper: Safe API Request
 // ============================================================================
 
 // Safe API bridge
@@ -20,7 +45,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 });
 
 // ============================================================================
-// 2. Explicit Renderer → Main Logging (stdout bridge)
+// 3. Explicit Renderer -> Main Logging (stdout bridge)
 // ============================================================================
 
 contextBridge.exposeInMainWorld('stdout', {
@@ -31,7 +56,7 @@ contextBridge.exposeInMainWorld('stdout', {
 });
 
 // ============================================================================
-// 3. Internal Renderer Console Forwarding (optional)
+// 4. Internal Renderer Console Forwarding (optional)
 // Sends all console.log/info/warn/error/debug to main log
 // ============================================================================
 
@@ -50,60 +75,42 @@ function serializeArg(a) {
   return String(a);
 }
 
-// Remove %c formatting (CSS in browser console)
-function stripPercentCAndStyles(args) {
-  if (!args.length) return args;
-  const out = [];
-  let i = 0;
-
-  while (i < args.length) {
-    const text = String(args[i]);
-
-    if (text.includes('%c')) {
-      const cnt = (text.match(/%c/g) || []).length;
-      out.push(text.replace(/%c/g, ''));
-      i += 1 + cnt;
-    } else {
-      out.push(text);
-      i++;
-    }
-  }
-
-  return out;
-}
-
-// Patch console.* and forward messages to main
-['log', 'warn', 'error', 'info', 'debug'].forEach((level) => {
+['log', 'info', 'warn', 'error', 'debug'].forEach((level) => {
   const original = console[level];
 
-  console[level] = (...args) => {
+  console[level] = function (...args) {
     try {
-      const stripped = stripPercentCAndStyles(args);
-      const msg = stripped.map(serializeArg).join(' ');
-      ipcRenderer.send('frontend-log', { level, message: msg });
-    } catch {
-      ipcRenderer.send('frontend-log', { level: 'error', message: '[log serialization failed]' });
+      const serialized = args.map(serializeArg);
+      ipcRenderer.send('frontend-log', {
+        level: level === 'log' ? 'info' : level,
+        args: serialized,
+      });
+    } catch (_) {
+      // ignore
     }
 
-    // Still print to local renderer DevTools
-    original(...args);
+    original.apply(console, args);
   };
 });
 
 // ============================================================================
-// 4. Unhandled Error Forwarding
+// 5. Unhandled Error Forwarding
 // ============================================================================
 
-window.addEventListener('error', (event) => {
-  ipcRenderer.send('frontend-log', {
-    level: 'error',
-    message: `Unhandled error: ${event.message}`,
-  });
+window.addEventListener('error', (evt) => {
+  const msg = `[Unhandled Error] ${evt.message} at ${evt.filename}:${evt.lineno}:${evt.colno}`;
+  try {
+    ipcRenderer.send('frontend-log', { level: 'error', args: [msg] });
+  } catch (e) {
+    console.error('[preload IPC failed]', msg, e);
+  }
 });
 
-window.addEventListener('unhandledrejection', (event) => {
-  ipcRenderer.send('frontend-log', {
-    level: 'error',
-    message: `Unhandled rejection: ${serializeArg(event.reason)}`,
-  });
+window.addEventListener('unhandledrejection', (evt) => {
+  const msg = `[Unhandled Promise Rejection] ${String(evt.reason)}`;
+  try {
+    ipcRenderer.send('frontend-log', { level: 'error', args: [msg] });
+  } catch (e) {
+    console.error('[preload IPC failed]', msg, e);
+  }
 });

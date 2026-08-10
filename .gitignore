@@ -1,17 +1,10 @@
 # Local binaries (Grype, etc.)
 bin/
-
-# Security scan reports
-security/
-
-# Local binaries (Grype, etc.)
-bin/
-
-# Security scan reports
-security/
+mongo-testdata/
 
 # Byte-compiled / optimized / DLL files
 bondtype_coverage.json
+.planning
 __pycache__/
 *.py[codz]
 *$py.class
@@ -24,8 +17,9 @@ prof/
 
 # Electron node modules
 frontend/node_modules
-node_modules/
-node_modules/
+# bare entry (no trailing slash) catches both real node_modules dirs and the workspace-root symlink
+node_modules
+repomix-output.xml
 
 # Distribution / packaging
 .Python
@@ -60,6 +54,7 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
+.playwright-mcp/
 .nox/
 .coverage
 .coverage.*
@@ -157,6 +152,8 @@ celerybeat.pid
 
 # Environments
 .env
+*.env
+.env.*
 .envrc
 .venv
 env/
@@ -206,7 +203,7 @@ cython_debug/
 # Include core workspace files for consistent behavior across developers.
 !.vscode/
 .vscode/*
-!.vscode/settings.json
+.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/tasks.json
 !.vscode/tasks.json
@@ -242,13 +239,26 @@ mcp/.module_index.json
 rdkit/
 
 # Local MCP repos and indexes
-.local-mcp/
 !.local-mcp/manifest.json
 
 # [mcpmenago] automatically generated content — do not edit
 .claude/settings.local.json
 .local-mcp/
+.mcp.idx
 external_repos/
 node_modules/
 tests/reports/
 .claude/
+.vscode/settings.json
+# autoresearch run artifacts (loop output at project root)
+/autoresearch/
+devcontainers/
+
+# Electron/editor/OS extras
+Thumbs.db
+.idea/
+*.swp
+*.swo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
