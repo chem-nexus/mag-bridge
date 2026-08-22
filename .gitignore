@@ -248,11 +248,9 @@ rdkit/
 external_repos/
 node_modules/
 tests/reports/
-.claude/
 .vscode/settings.json
 # autoresearch run artifacts (loop output at project root)
 /autoresearch/
-devcontainers/
 
 # Electron/editor/OS extras
 Thumbs.db
@@ -262,3 +260,6 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# --- AI platform scaffold (managed) ---
+.ai/
