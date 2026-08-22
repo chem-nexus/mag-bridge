@@ -6,3 +6,7 @@
 	path = devcontainers
 	url = https://github.com/Sevelantis/devcontainers.git
 	ignore = all
+[submodule "magbridge-mongodb"]
+	path = magbridge-mongodb
+	url = https://github.com/mag-bros/magbridge-mongodb.git
+	ignore = all
