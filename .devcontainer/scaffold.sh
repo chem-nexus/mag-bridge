@@ -144,11 +144,6 @@ gen_mcp() { cat <<'EOF'
       "type": "stdio",
       "command": "uvx",
       "args": ["jcodemunch-mcp"]
-    },
-    "yfinance": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": ["--from", "yfmcp", "yfmcp"]
     }
   }
 }
