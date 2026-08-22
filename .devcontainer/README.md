@@ -23,6 +23,54 @@ It prompts you to **paste your read-only token** (input hidden — never in your
 
 That's it — reopen brings up your per-project stack (gateway, ingress, observability).
 
+## Add your own services
+
+Your repo can run its own containers — a database, a web app, a workflow engine, anything — **alongside** the
+workspace, **without touching the `devcontainers/` platform**. It's two per-repo files.
+
+**1. Declare it** in `.devcontainer/docker-compose.client.yaml` (this file merges over the platform stack). The
+example uses `busybox` as a stand-in — **swap it for your real image** (for example `postgres`, `redis`, a
+FastAPI, a workflow engine):
+
+```yaml
+services:
+  my-service: # name it whatever you like
+    image: busybox # ← your image here
+    command: ["httpd", "-f", "-p", "8080"] # whatever runs your service
+    networks: [central-gateway-internal] # the shared wall the workspace lives on
+```
+
+**2. Turn it on** in `.devcontainer/devcontainer.json` — add the file, then list the service so it boots with
+the workspace:
+
+```jsonc
+"dockerComposeFile": [
+  "../devcontainers/docker-compose.yaml",
+  "docker-compose.client.yaml"          // <- your file, second (merges over the base)
+],
+"runServices": ["workspace", "my-service"]
+```
+
+**3. Rebuild Container.** Your service appears in the **same project box** in Docker Desktop as the workspace.
+Need more than one? Add each service to the file and to `runServices` — same pattern.
+
+### Reaching it
+
+| From                           | How                                              | Example                                   |
+| ------------------------------ | ------------------------------------------------ | ----------------------------------------- |
+| your code (workspace)          | service **name** on the shared network           | `my-service:8080`                         |
+| the host / browser (HTTP only) | `‹service›.‹port›.‹project›.localhost:‹ingress›` | `my-service.8080.dev-jane.localhost:7700` |
+
+- **TCP services stay internal** — a database (for example Postgres, Redis, Mongo) is reached by name from your
+  code; it gets no browser URL and doesn't need one.
+- **Web UIs get a host URL** through the ingress automatically — the port rides in the subdomain, no per-service
+  config. Behind the admin `basic_auth` gate (user `admin`). `‹project›` = your `COMPOSE_PROJECT_NAME`,
+  `‹ingress›` = your `DEVCONTAINER_INGRESS_PORT`.
+- **Everything joins `central-gateway-internal`** — the same no-internet wall as the workspace, so Docker DNS
+  resolves the service names for you.
+- **Data is ephemeral** unless you add a named volume (`volumes: [mydata:/path]` + a top-level `volumes: { mydata: {} }`).
+  Only ever use your **own** volumes — never mount a platform/infrastructure volume.
+
 ## The token
 
 One **read-only** fine-grained PAT with access to both submodule repos:
