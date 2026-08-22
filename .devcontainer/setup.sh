@@ -54,6 +54,11 @@ ensure_sub() {          # ensure_sub <path> <url>  → 0 ok, 1 failed
       && { echo "    = $path present — updated" >&2; return 0; }
     echo "    ✗ $path present but update FAILED" >&2; return 1
   fi
+  # registered gitlink but not checked out (e.g. cloned repo carrying gitlinks, or a .gitmodules-less
+  # index entry) → 'submodule add' errors "already exists in the index"; drop the stale entry first.
+  if git -C "$ROOT" ls-files --error-unmatch "$path" >/dev/null 2>&1; then
+    git -C "$ROOT" rm --cached -f "$path" >/dev/null 2>&1 || true
+  fi
   if git -C "$ROOT" submodule add --force "$url" "$path" >/dev/null 2>&1; then
     git config -f "$ROOT/.gitmodules" "submodule.$path.ignore" all >/dev/null 2>&1 || true
     echo "    + $path added (cloned + registered, ignore=all)" >&2; return 0
