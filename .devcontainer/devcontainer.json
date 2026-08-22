@@ -3,7 +3,7 @@
   // 🧭 Client pointer — the whole per-repo control surface. No containers, no
   // tooling, no egress env (all inherited from the platform compose / image).
   // =========================================================================
-  "name": "AI Devcontainer (sandbox platform)",
+  "name": "MagBridge Devcontainer",
   // The ONE platform compose, a flat-sibling clone (../ = client repo root).
   "dockerComposeFile": ["../devcontainers/docker-compose.yaml"],
   // `service` = which container VS Code attaches to. Only `runServices` below actually starts —
@@ -16,50 +16,14 @@
   // Grafana/Prometheus + the Caddy ingress live in the shared `devcentral` project. The ingress is
   // HOST-PUBLISHED on localhost:8080 by the gateway (not VS Code-forwarded) → open localhost:8080/grafana,
   // /cbm, /agent-canvas. These per-workspace ports stay forwarded for direct access as a fallback.
-  "forwardPorts": [4200, 6006, 8000, 8001, 8787, 9749, 15500, 9898, 3434],
+  "forwardPorts": [4200, 8000],
   "portsAttributes": {
     "4200": {
       "label": "Angular Frontend",
       "onAutoForward": "silent"
     },
-    "9898": {
-      "label": "Agent Canvas Backend",
-      "onAutoForward": "silent"
-    },
-    "3434": {
-      "label": "Agent Canvas UI",
-      "onAutoForward": "silent"
-    },
-    "6006": {
-      "label": "Phoenix UI",
-      "onAutoForward": "silent"
-    },
     "8000": {
       "label": "FastAPI Backend",
-      "onAutoForward": "silent"
-    },
-    "8001": {
-      "label": "Converter v2 Frontend (Vite)",
-      "onAutoForward": "silent"
-    },
-    "8787": {
-      "label": "Headroom UI",
-      "onAutoForward": "silent"
-    },
-    "9749": {
-      "label": "Codebase Memory MCP UI",
-      "onAutoForward": "silent"
-    },
-    "15500": {
-      "label": "Promptfoo UI",
-      "onAutoForward": "silent"
-    },
-    "15500": {
-      "label": "Promptfoo UI",
-      "onAutoForward": "silent"
-    },
-    "15500": {
-      "label": "Promptfoo UI",
       "onAutoForward": "silent"
     }
   },
@@ -92,7 +56,7 @@
   },
   // Consumers run ONLY the workspace. The gateway is a shared singleton owned by the central
   // `devcentral` platform project (see initializeCommand); it is NOT pulled per-consumer.
-  "runServices": ["workspace", "mongo", "mongo-express"],
+  "runServices": ["workspace"], // , "mongo", "mongo-express"
   // =========================================================================
   // ♻️ Lifecycle — initializeCommand runs FIRST, on the HOST, before the workspace builds: ensures the
   // shared --internal network (fail-closed if it exists but isn't internal) and the central `devcentral`
