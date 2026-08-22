@@ -48,22 +48,36 @@ export GIT_TERMINAL_PROMPT=0 GIT_CONFIG_COUNT=1 \
   GIT_CONFIG_KEY_0=http.extraHeader GIT_CONFIG_VALUE_0="Authorization: Basic ${b64}"
 
 ensure_sub() {          # ensure_sub <path> <url>  → 0 ok, 1 failed
+  # Converges to target state (cloned + registered, ignore=all) from ANY prior state — fresh,
+  # healthy, or half-added (stale index gitlink / leftover .git/modules / orphaned config /
+  # empty or partial working dir). No manual cleanup is ever required; re-running is safe.
   path="$1"; url="$2"
-  if [ -e "$ROOT/$path/.git" ]; then
-    git -C "$ROOT" submodule update --init "$path" >/dev/null 2>&1 \
-      && { echo "    = $path present — updated" >&2; return 0; }
-    echo "    ✗ $path present but update FAILED" >&2; return 1
+  [ -n "$path" ] || { echo "    ✗ empty submodule path — refusing" >&2; return 1; }
+
+  # already a healthy checkout → just update.
+  if git -C "$ROOT/$path" rev-parse --git-dir >/dev/null 2>&1; then
+    if git -C "$ROOT" submodule update --init "$path" >/dev/null 2>&1; then
+      echo "    = $path present — updated" >&2; return 0
+    fi
+    echo "    · $path checkout unhealthy — rebuilding" >&2
   fi
-  # registered gitlink but not checked out (e.g. cloned repo carrying gitlinks, or a .gitmodules-less
-  # index entry) → 'submodule add' errors "already exists in the index"; drop the stale entry first.
-  if git -C "$ROOT" ls-files --error-unmatch "$path" >/dev/null 2>&1; then
-    git -C "$ROOT" rm --cached -f "$path" >/dev/null 2>&1 || true
+
+  # tear down any partial/leftover state so the fresh add starts from a clean slate.
+  gitdir="$(git -C "$ROOT" rev-parse --absolute-git-dir 2>/dev/null || true)"
+  git -C "$ROOT" rm --cached -f -- "$path"                  >/dev/null 2>&1 || true  # stale index gitlink
+  git -C "$ROOT" config --remove-section "submodule.$path"  >/dev/null 2>&1 || true  # orphaned .git/config
+  if [ -f "$ROOT/.gitmodules" ]; then
+    git config -f "$ROOT/.gitmodules" --remove-section "submodule.$path" >/dev/null 2>&1 || true
   fi
+  if [ -n "$gitdir" ] && [ -d "$gitdir/modules/$path" ]; then rm -rf "$gitdir/modules/$path"; fi  # leftover module dir
+  if [ -d "$ROOT/$path" ]; then rm -rf "$ROOT/$path"; fi                                          # empty/partial working dir
+
   if git -C "$ROOT" submodule add --force "$url" "$path" >/dev/null 2>&1; then
     git config -f "$ROOT/.gitmodules" "submodule.$path.ignore" all >/dev/null 2>&1 || true
     echo "    + $path added (cloned + registered, ignore=all)" >&2; return 0
   fi
-  echo "    ✗ $path add FAILED — does GH_TOKEN_RO have read access to $url ?" >&2; return 1
+  echo "    ✗ $path add FAILED — auth or network. Reproduce: git submodule add '$url' '$path'" >&2
+  return 1
 }
 
 echo "  → ensuring submodules …" >&2
