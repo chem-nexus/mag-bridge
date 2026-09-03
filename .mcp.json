@@ -15,10 +15,11 @@
     },
     "github": {
       "type": "stdio",
-      "command": "mcp-server-github",
-      "args": [],
+      "command": "github-mcp-server",
+      "args": ["stdio"],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GH_TOKEN}"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GH_TOKEN_RO_PROJECT}",
+        "GITHUB_READ_ONLY": "1"
       }
     },
     "repomix": {
