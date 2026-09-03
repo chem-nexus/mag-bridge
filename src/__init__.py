@@ -8,5 +8,8 @@ IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 SDF_DIR: Path = ROOT_DIR.joinpath("data/sdf")
 MOLECULE_MATCH_SUBDIR = "molecule_match"
 DIAMAG_COMPOUND_SUBDIR = "diamag_compound"
-DATA_QUALITY_SUBDIR = "data_quality"
 BOND_MATCH_SUBDIR = "bond_match"
+
+# --- Mongo ---
+SDF_DIR_MONGO: Path = ROOT_DIR.joinpath("magbridge-mongodb/data/sdf")
+DATA_QUALITY_SUBDIR = "data_quality"

@@ -168,6 +168,7 @@ COMMON_MOLECULES: dict[str, list[CommonMolecule]] = {
             diamag_sus=-23,
             sdf_file="NCO-.sdf",
         ),
+        # TODO: Add second resonance form N=C=[S-]
         CommonMolecule(
             formula="NCS(-)",
             name="thiocyanate",
