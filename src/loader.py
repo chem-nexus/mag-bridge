@@ -5,6 +5,8 @@ from rdkit.Chem import (
     AddHs,
     Mol,
     MolFromSmiles,
+    SanitizeFlags,
+    SanitizeMol,
     SDMolSupplier,
 )
 from rdkit.Chem import rdMolDescriptors as rdmd
@@ -24,16 +26,40 @@ class MBLoader:
     """Utility for loading and validating SDF files."""
 
     @staticmethod
-    def FromSDF(source_file: str, subdir=".") -> MBCompound:
+    def FromSDF(
+        source_file: str,
+        subdir=".",
+        sdf_dir: Path = SDF_DIR,
+    ) -> MBCompound:
         """Loads an SDF file and return a MBCompound object containing a list of molecules"""
 
-        sdf_path = SDF_DIR.joinpath(subdir).joinpath(source_file)
+        sdf_path: Path = sdf_dir.joinpath(subdir).joinpath(source_file)
         MBLoader.CheckSDF(sdf_path)
 
         raw_mols = list(SDMolSupplier(str(sdf_path), sanitize=True, removeHs=False))
 
         if not raw_mols:
             raise SDFEmptyFileError(f"No molecules found in file: {sdf_path}")
+
+        # apply every sanitization step EXCEPT the valence check (omit problem with hypervalency)
+        failed_indices = [i for i, mol in enumerate(raw_mols) if mol is None]
+
+        if failed_indices:
+            unsanitized = list(SDMolSupplier(str(sdf_path), sanitize=False, removeHs=False))
+
+            for i in failed_indices:
+                if i < len(unsanitized) and unsanitized[i] is not None:
+                    mol = unsanitized[i]
+                    # Compute valences/implicit-H WITHOUT enforcing the valence limit.
+                    # This is the step that normally raises on hypervalent Br.
+                    mol.UpdatePropertyCache(strict=False)
+                    # Run the remaining sanitization (rings, aromaticity, hybridization...),
+                    # skipping the strict property/valence check we just did non-strictly.
+                    SanitizeMol(
+                        mol,
+                        sanitizeOps=SanitizeFlags.SANITIZE_ALL ^ SanitizeFlags.SANITIZE_PROPERTIES,
+                    )
+                    raw_mols[i] = mol
 
         failed = sum(1 for mol in raw_mols if mol is None)
         if failed:

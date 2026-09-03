@@ -7,44 +7,69 @@
     },
     "context7": {
       "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp@2.2.5"],
+      "command": "context7-mcp",
+      "args": [],
       "env": {
         "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
       }
     },
     "github": {
       "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "command": "github-mcp-server",
+      "args": ["stdio"],
       "env": {
-        "GITHUB_TOKEN": "${GIT_READONLY}"
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GH_TOKEN_RO_PROJECT}",
+        "GITHUB_READ_ONLY": "1"
       }
     },
     "repomix": {
       "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "repomix@1.14.0", "--mcp"]
+      "command": "repomix",
+      "args": ["--mcp"]
     },
     "tavily": {
-      "command": "npx",
-      "args": ["-y", "tavily-mcp@0.2.19"],
+      "command": "tavily-mcp",
+      "args": [],
       "env": {
         "TAVILY_API_KEY": "${TAVILY_API_KEY}"
       }
     },
     "exa": {
       "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "exa-mcp-server@3.2.1"],
+      "command": "exa-mcp-server",
+      "args": [],
       "env": {
         "EXA_API_KEY": "${EXA_API_KEY}"
       }
     },
     "pdf-reader": {
       "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "@sylphx/pdf-reader-mcp@2.4.0", "--no-http"]
+      "command": "pdf-reader-mcp",
+      "args": []
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "playwright-mcp",
+      "timeout": 30,
+      "tools": ["*"],
+      "args": [
+        "--browser",
+        "chromium",
+        "--headless",
+        "--no-sandbox",
+        "--executable-path",
+        "/usr/bin/chromium",
+        "--viewport-size",
+        "720x900",
+        "--output-dir",
+        ".playwright-mcp"
+      ],
+      "disabled": false
+    },
+    "jcodemunch": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["jcodemunch-mcp"]
     }
   }
 }

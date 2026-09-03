@@ -1,46 +1,110 @@
-## Base Architecture
-* **Image:** `docker.io/library/python:3.12-slim-bookworm`
-* **Profile:** Provides a highly secure, minimal-footprint OS foundation. Because it is a "slim" variant, it deliberately excludes non-essential system utilities and runtimes to reduce attack surface and build time.
+# Setup
 
-## Core Features
-* **Python:** Lightning-fast virtual environments and dependency management via `uv`.
-* **Node.js:** Provisioned purely to make the binary and package manager available to the user, as the slim Python base image does not include it by default. 
-* **Shell Experience:** ZSH out-of-the-box with Powerlevel10k, persistent history, and custom `dotfiles/.shell_utils` aliases.
+One-time onboarding onto the shared **AI devcontainer platform**. The two private components — `.claude/`
+and `devcontainers/` — are git **submodules**; one interactive script pulls them and writes your config.
 
-## AI Isolation Security
-Enforces a zero-trust execution sandbox for AI agents through strict cgroups, read-only kernel parameters, restricted namespace visibility, and non-root user isolation.
+## Onboarding
 
-# Dev Container Lifecycle Architecture
+From the repo root:
 
-This document outlines the chronological execution of our Dev Container setup. The architecture strictly separates OS-level dependencies, heavy project dependencies, and lightweight user customizations to enable CI/CD pre-building and guarantee a zero-wait Developer Experience (DX).
+```bash
+bash .devcontainer/setup.sh
+```
 
-## The Execution Timeline
+It prompts you to **paste your read-only token** (input hidden — never in your shell history), saves it to
+`.env`, and fetches the submodules. Then set two values in `.env` and **Reopen in Container** (VS Code):
 
-**1. Image Build (`Dockerfile`)**
-* **Trigger:** `docker build`
-* **Context:** Executes before the container exists.
-* **Purpose:** Installs immutable, system-wide OS dependencies (e.g., `apt-get install`). This layer is baked into the Docker image cache.
+| key                         | value                                                                 |
+| --------------------------- | --------------------------------------------------------------------- |
+| `COMPOSE_PROJECT_NAME`      | unique, lowercase (e.g. `dev-jane`) — names your containers + volumes |
+| `DEVCONTAINER_INGRESS_PORT` | a unique port, one per repo (`7700`, `7701`, …)                       |
 
-**2. Container Instantiation (`docker run`)**
-* **Trigger:** IDE requests the container environment.
-* **Context:** The container starts, and the host OS mounts the local workspace (source code) into it.
+(API keys like `CONTEXT7_API_KEY`, `TAVILY_API_KEY` are optional — blank = that MCP server stays off.)
 
-**3. Workspace Dependencies (`updateContentCommand`)**
-* **Trigger:** Runs **inside** the running container automatically.
-* **Context:** Background process (blocks IDE terminal access).
-* **Purpose:** Uses the container's isolated tools to download heavy project requirements (e.g., `npm install`, `uv venv`). *Note: In cloud environments like GitHub Codespaces, pre-builds pause and cache the state at this exact step.*
+That's it — reopen brings up your per-project stack (gateway, ingress, observability).
 
-**4. User Customization (`postCreateCommand`)**
-* **Trigger:** Runs **inside** the running container immediately after Step 3.
-* **Context:** Background process (blocks IDE terminal access).
-* **Purpose:** Installs fast, user-specific runtime configurations, dotfiles, and shell themes (e.g., Powerlevel10k, Git aliases).
+## Add your own services
 
-**5. IDE Attachment**
-* **Trigger:** VS Code Server completes its connection.
-* **Context:** The terminal window opens for the developer.
-* **Purpose:** The environment is 100% fully configured and ready for immediate interaction.
+Your repo can run its own containers — a database, a web app, a workflow engine, anything — **alongside** the
+workspace, **without touching the `devcontainers/` platform**. It's two per-repo files.
 
-**6. Service Wake-up (`postStartCommand`)** *[Optional]*
-* **Trigger:** Runs **inside** the container *every* time it wakes up from a stopped state (e.g., reopening a laptop).
-* **Context:** Background process.
-* **Purpose:** Starts background application services (e.g., FastAPI, Angular dev server).
+**1. Declare it** in `.devcontainer/docker-compose.client.yaml` (this file merges over the platform stack). The
+example uses `busybox` as a stand-in — **swap it for your real image** (for example `postgres`, `redis`, a
+FastAPI, a workflow engine):
+
+```yaml
+services:
+  my-service: # name it whatever you like
+    image: busybox # ← your image here
+    command: ["httpd", "-f", "-p", "8080"] # whatever runs your service
+    networks: [central-gateway-internal] # the shared wall the workspace lives on
+```
+
+**2. Turn it on** in `.devcontainer/devcontainer.json` — add the file, then list the service so it boots with
+the workspace:
+
+```jsonc
+"dockerComposeFile": [
+  "../devcontainers/docker-compose.yaml",
+  "docker-compose.client.yaml"          // <- your file, second (merges over the base)
+],
+"runServices": ["workspace", "my-service"]
+```
+
+**3. Rebuild Container.** Your service appears in the **same project box** in Docker Desktop as the workspace.
+Need more than one? Add each service to the file and to `runServices` — same pattern.
+
+### Reaching it
+
+| From                           | How                                              | Example                                   |
+| ------------------------------ | ------------------------------------------------ | ----------------------------------------- |
+| your code (workspace)          | service **name** on the shared network           | `my-service:8080`                         |
+| the host / browser (HTTP only) | `‹service›.‹port›.‹project›.localhost:‹ingress›` | `my-service.8080.dev-jane.localhost:7700` |
+
+- **TCP services stay internal** — a database (for example Postgres, Redis, Mongo) is reached by name from your
+  code; it gets no browser URL and doesn't need one.
+- **Web UIs get a host URL** through the ingress automatically — the port rides in the subdomain, no per-service
+  config. Behind the admin `basic_auth` gate (user `admin`). `‹project›` = your `COMPOSE_PROJECT_NAME`,
+  `‹ingress›` = your `DEVCONTAINER_INGRESS_PORT`.
+- **Everything joins `central-gateway-internal`** — the same no-internet wall as the workspace, so Docker DNS
+  resolves the service names for you.
+- **Data is ephemeral** unless you add a named volume (`volumes: [mydata:/path]` + a top-level `volumes: { mydata: {} }`).
+  Only ever use your **own** volumes — never mount a platform/infrastructure volume.
+
+## The token
+
+One **read-only** fine-grained PAT with access to both submodule repos:
+
+- repos `Sevelantis/.claude` + `Sevelantis/devcontainers`, **Contents: Read-only**
+- create at <https://github.com/settings/tokens?type=beta>
+
+`setup.sh` asks for it and stores it as `GH_TOKEN_RO` in `.env` (gitignored, `0600`). Add `GH_TOKEN_RW` only if
+you push from inside the container.
+
+## Prerequisites
+
+- Docker + VS Code with the **Dev Containers** extension
+
+## How it works
+
+- **`setup.sh`** — interactive onboarding: runs `scaffold.sh`, prompts for the token (hidden — never in shell
+  history, argv, or logs), writes it to `.env`, then **adds** the submodules (clone + register on a fresh repo,
+  or updates them if present). Reports success/failure honestly and is re-runnable.
+- **`scaffold.sh`** — the static-file half (idempotent, never clobbers): writes `.env`/`.mcp.json`/`.npmrc` and
+  adds `.mcp.idx`, `.ai/`, `*.env` to `.gitignore`.
+- **Submodules** — `.claude/` → `Sevelantis/.claude`, `devcontainers/` → `Sevelantis/devcontainers`; pinned by commit
+  with `ignore = all`, so `git status` stays quiet even after you commit inside them.
+- **Reopen in Container** runs `devcontainers/scripts/initializeCommand.sh` (host-side), which brings up this
+  repo's per-project platform under your `COMPOSE_PROJECT_NAME`.
+
+## Troubleshooting
+
+- **Empty `.claude/` or `devcontainers/`** — the token lacks read on both `Sevelantis` repos, or wasn't entered.
+  Fix `GH_TOKEN_RO` in `.env` and re-run `bash .devcontainer/setup.sh`.
+- **Rebuild blocked / port clash** — `DEVCONTAINER_INGRESS_PORT` is still `CHANGE_ME` or collides with another
+  running repo. Pick a unique number.
+- **`git status` shows `.claude`/`devcontainers` "(new commits)"** — expected only when you commit _inside_ a
+  submodule; `ignore = all` hides routine drift. Publish a new pin deliberately: `git add .claude devcontainers`.
+- **Did it work?** — `bash .devcontainer/scaffold.sh --check` lists which config files are present/missing
+  (optional; `setup.sh` already creates them).
+- `.env` is gitignored (it holds your tokens) — never commit it.
