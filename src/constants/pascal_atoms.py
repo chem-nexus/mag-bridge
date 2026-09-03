@@ -28,7 +28,7 @@ PASCAL_CONST = {
         "ionic": {
             "charge": {
                 1: 0,
-                -1: -5.7,
+                -1: -5.7,  # TODO source?
             },
         },
     },

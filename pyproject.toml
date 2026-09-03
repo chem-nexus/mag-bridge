@@ -20,8 +20,8 @@ packages = [
 ]
 
 [tool.pytest.ini_options]
-pythonpath = ["."]
-testpaths = ["tests"]
+pythonpath = ["src", "tests", ".", "magbridge-mongodb/tests"]
+testpaths = ["tests", "magbridge-mongodb/tests"]
 # addopts = "-vv"
 addopts = "-q --tb=no --no-summary"
 
